@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Perfil Doctor</title>
+        <title>Paciente</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -106,16 +106,28 @@
                             <form action="#" id="paciente" method="POST" class="form-horizontal">
 
                                 <div class="form-group">
-                                    <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
+                                    <label for="nombre_pa" class="col-lg-3 control-label">Nombre</label>
                                     <div class="col-lg-4">
-                                        <input type="text" name="nombrePaciente" class="form-control" placeholder="Escriba un nombre" required>
+                                        <input type="text" name="nombre_pa" class="form-control" placeholder="Escriba el nombre" required>
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                    <label for="apellido_pa" class="col-lg-3 control-label">Apelldo</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" name="apellido_pa" class="form-control" placeholder="Escriba el apellido" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                              <label for="Fecha_Nacimiento" class="col-lg-3 control-label">Fecha de nacimiento:</label>
+                                              <label for="Fecha_Na_pa" class="col-lg-3 control-label">Fecha de nacimiento:</label>
                                 <div class="col-lg-3">
                                     <input type="date"  class="form-control"><br>
                                       </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edad_pa" class="col-lg-3 control-label">Edad</label>
+                                    <div class="col-lg-4">
+                            <input type="text" name="edad_pa" placeholder="Escribala edad" class="form-control" required>
+                               </div>
                                 </div>
                                 <div class="form-group">
                                             <label class="col-lg-3 control-label">Genero</label>
@@ -124,34 +136,34 @@
                                                 Masculino
                                                 <input type="radio" name="optionsRadios" id="focusedInput">
                                                 Femenino   
-                                            </div>  
+                                                </div>  
                                         </div>
   
                                 <div class="form-group">
-                                    <label for="telefono" class="col-lg-3 control-label">Telefono</label>
+                                    <label for="telefono_pa" class="col-lg-3 control-label">Telefono</label>
                                     <div class="col-lg-4">
-                                        <input type="tel" name="telefonoPaciente" placeholder="Escriba un numero de telefono" class="form-control" required>
+                                        <input type="tel" name="telefono_pa" placeholder="Escriba un numero de telefono" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">    
-                                    <label for="direccionPaciente" class="col-lg-3 control-label">Direccion actual</label>
+                                    <label for="direccion_pa" class="col-lg-3 control-label">Direccion actual</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="direcPaciente" class="form-control" placeholder="Escriba la direccion" required>
+                                        <input type="text" name="direccion_pa" class="form-control" placeholder="Escriba la direccion" required>
 
                                     </div>
                                 </div>
                                 
                                    <div class="form-group">    
-                                    <label for="municipioPaciente" class="col-lg-3 control-label">Municipio</label>
+                                    <label for="municipio_pa" class="col-lg-3 control-label">Municipio</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="direcPaciente" class="form-control" placeholder="Municipio" required>
+                                        <input type="text" name="municipio_pa" class="form-control" placeholder="Municipio" required>
 
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label for="departamento" class="col-lg-3 control-label">Departamento</label>
+                                    <label for="departamento_pa" class="col-lg-3 control-label">Departamento</label>
                                     <div class="col-lg-4">
-                                        <select name="departamento" class="form-control" required="">
+                                        <select name="departamento_pa" class="form-control" required="">
                                          
                                             <option value="-1">- Seleccione -</option>
                                             <option>San Salvador</option>
@@ -176,8 +188,9 @@
                                       <br>
                                      <br>
                                      <center>
-             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Buscar</a>
              <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Modificar</a>
+              <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
              </center>
                                 </div>
                            
@@ -204,42 +217,24 @@
 
                             <form action="#" id="paciente" method="POST" class="form-horizontal">
 
-                                <div class="form-group">
-                                    <label for="Nombre" class="col-lg-3 control-label">Paciente</label>
-                                    <div class="col-lg-4">
-                                        <input type="text" name="nombrePaciente" class="form-control" placeholder="" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                              <label for="Edad" class="col-lg-3 control-label">Edad</label>
-                                <div class="col-lg-3">
-                                    <input type="text" class="form-control" required><br>
-                                      </div>
-                                </div>
+                                
                                 
                                 <div class="form-group">
-                                              <label for="Expediente N°" class="col-lg-3 control-label">Expediente N°</label>
+                                              <label for="nu_expe_pa" class="col-lg-3 control-label">Expediente N°</label>
                                 <div class="col-lg-3">
                                     <input  type="text" class="form-control"required><br>
                                       </div>
                                 </div>
-                                
-                                 <div class="form-group">
-                                              <label for="Lugar de origen°" class="col-lg-3 control-label">Lugar de origen</label>
+
+                                <div class="form-group">
+                                              <label for="referido" class="col-lg-3 control-label">Referido de</label>
                                 <div class="col-lg-3">
                                     <input  type="text" class="form-control"required><br>
                                       </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                              <label for="Referido de" class="col-lg-3 control-label">Referido de</label>
-                                <div class="col-lg-3">
-                                    <input  type="text" class="form-control"required><br>
-                                      </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                              <label for="Referido de" class="col-lg-3 control-label">Fecha</label>
+                                              <label for="fecha_consulta" class="col-lg-3 control-label">Fecha</label>
                                 <div class="col-lg-3">
                                     <input  type="date" class="form-control"required><br>
                                       </div>
@@ -270,8 +265,9 @@
                                       <br>
                                      <br>
                                      <center>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Buscar</a>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Crear</a>
              <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
-             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Modificar</a>
              </center>
                               
                            
@@ -293,38 +289,42 @@
                 
                 <form action="#" id="busquedaCita" class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="Num_exp" class="col-lg-3 control-label">Numero de expediente:</label>
+                                    <label for="nu_exp" class="col-lg-3 control-label">Numero de expediente:</label>
                                     <div class="col-lg-3">
-                                        <input type="text" name="Nombre_pa" class="form-control "   placeholder="-----------" required>
+                                        <input type="text" name="nu_ex" class="form-control "   placeholder="-----------" required>
                                     </div>
  
                                 </div> 
                                 
                                 <div class="panel-body">
                                 <div class="form-group">
-                                    <label for="Nombre_doc" class="col-lg-3 control-label">Doctor: </label>
+                                    <label for="nombre_doc" class="col-lg-3 control-label">Doctor: </label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="Nombre_doc" class="form-control" placeholder="Escriba nombre" required>
+                                        <input type="text" name="nombre_doc" class="form-control" placeholder="Escriba nombre" required>
                                     </div>
                                   </div>
                                 </div>
 
 
                            
-                                <label for="Fecha_Cita" class="col-lg-3 control-label">Proxima Cita:</label>
+                                <label for="fecha_cita" class="col-lg-3 control-label">Proxima Cita:</label>
                                 <div class="col-lg-3">
                                     <input type="date"  class="form-control"><br>
                                     <br>
-                                    <label for="hora_Cita" class="col-lg-2 control-label">Hora:</label>
+                                    <label for="hora_cita" class="col-lg-2 control-label">Hora:</label>
                                     <div class="col-lg-10">
-                                        <input type="time"  class="form-control">  
+                                        <input type="time"  class="form-control"> 
+                 
                                     </div>
-                                     <br>
-                                     <br>
-                                   
-                       <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
-                       <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Limpiar</a>
+
                                 </div>
+                                                         <br>
+                                     <br>
+                                        <center>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Buscar</a>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Crear</a>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
+             </center> 
                             </form>
                 </div>
                 </div>
