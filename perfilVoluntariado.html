@@ -93,59 +93,60 @@
                             <form action="#" id="perfilVoluntariado" method="POST" class="form-horizontal">
 
                                 <div class="form-group">
-                                    <label for="Nombre_doc" class="col-lg-3 control-label">Nombre</label>
+                                    <label for="nombre_vo" class="col-lg-3 control-label">Nombre</label>
                                     <div class="col-lg-4">
-                                        <input type="text" name="Nombre_doc" class="form-control" placeholder="Escriba nombre" required>
+                                        <input type="text" name="nombre_vo" class="form-control" placeholder="Escriba nombre" required>
                                     </div>
                                 </div>
                                 
-                                  
+                                  <div class="form-group">
+                                    <label for="apellido_vo" class="col-lg-3 control-label">Nombre</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" name="apellido_vo" class="form-control" placeholder="Escriba nombre" required>
+                                    </div>
+                                </div>
+                                
                                 
                                   <div class="form-group">
-                                              <label for="Fecha_Nacimiento" class="col-lg-3 control-label">Fecha de nacimiento:</label>
+                                              <label for="fecha_na_vo" class="col-lg-3 control-label">Fecha de nacimiento:</label>
                                 <div class="col-lg-3">
                                     <input type="date"  class="form-control"><br>
                                       </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="Contrasenia" class="col-lg-3 control-label">Contraseña</label>
+                                   <div class="form-group">
+                                    <label for="edad_vo" class="col-lg-3 control-label">Edad</label>
                                     <div class="col-lg-4">
-                                        <input type="password" name="password_emp" class="form-control" placeholder="Contraseña" required>
-                                    </div>  
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ConfirmContrasenia" class="col-lg-3 control-label">Confirme contraseña</label>
-                                    <div class="col-lg-4">
-                                        <input type="password" name="confirm_password" class="form-control" placeholder="Confirme su contraseña" required>
-                                    </div>  
-                                </div>    
-
-
-                                <div class="form-group">
-                                    <label for="correo" class="col-lg-3 control-label">Correo</label>
-                                    <div class="col-lg-4">
-                                        <input type="email" name="email_emp" placeholder="Ejemplo: ejemplo@dominio.com" class="form-control" id="focusedInput" required>
+                                        <input type="text" name="edad_vo" placeholder="Escriba su edad" class="form-control" required>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                            <label class="col-lg-3 control-label">Genero</label>
+                                            <div class="col-lg-4">
+                                                <input type="radio" name="optionsRadios" id="focusedInput" checked="">
+                                                Masculino
+                                                <input type="radio" name="optionsRadios" id="focusedInput">
+                                                Femenino   
+                                                </div>  
+                                        </div>
+                             
 
                                 <div class="form-group">
-                                    <label for="telefono" class="col-lg-3 control-label">Telefono</label>
+                                    <label for="telefono_vo" class="col-lg-3 control-label">Telefono</label>
                                     <div class="col-lg-4">
-                                        <input type="tel" name="telefono_emp" placeholder="Escriba un numero de telefono" class="form-control" required>
+                                        <input type="tel" name="telefono_vo" placeholder="Escriba un numero de telefono" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">    
-                                    <label for="direccion" class="col-lg-3 control-label">Direccion</label>
+                                    <label for="direccion_vo" class="col-lg-3 control-label">Direccion</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="direcccion_doc" class="form-control" placeholder="Escriba la direccion" required>
+                                        <input type="text" name="direcccion_vo" class="form-control" placeholder="Escriba la direccion" required>
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Departamento" class="col-lg-3 control-label">Departamento</label>
+                                    <label for="Departamento_vo" class="col-lg-3 control-label">Departamento</label>
                                     <div class="col-lg-4">
-                                        <select name="departamento" class="form-control" required="">
+                                        <select name="departamento_vo" class="form-control" required="">
                                           
                                             <option value="-1">- Seleccione -</option>
                                             <option>San Salvador</option>
@@ -172,6 +173,8 @@
                                      <center>
              <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
              <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Modificar</a>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Buscar</a>
+             <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Eliminar</a>
              </center>
                                 </div>
                             </form>
