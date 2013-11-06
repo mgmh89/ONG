@@ -487,7 +487,7 @@
                                 </div>
                                 <label for="Fecha_Cita" class="col-lg-3 control-label">Proxima Cita:</label>
                                 <div class="col-lg-3">
-                                    <input type="date"  name="fecha" class="form-control"><br>
+                                    <input type="date"  name="fecha_cita" class="form-control"><br>
                                     <br>
                                     <label for="hora_Cita" class="col-lg-2 control-label">Hora:</label>
                                     <div class="col-lg-10">
