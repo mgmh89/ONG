@@ -69,7 +69,7 @@
                      $_SESSION['nombre'] = $nombre;
 		    $_SESSION['cod_vo'] = $cod_vo;
                     echo $_SESSION['nombre'];
-                    header("Location:/ONG/private_content/index.php"); /* Redirect browser */
+                    header("Location:/ONG/voluntarios/index.php"); /* Redirect browser */
                 }
             } else {
                 echo "Por favor introduzca un usuario y contrasenia correctos";
