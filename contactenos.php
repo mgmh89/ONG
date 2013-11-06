@@ -21,45 +21,23 @@
 
     </head>
     <body>
-    
-    
-    <?php
-if(isset($_POST['email'])) {
+            <?php 
 
-// Debes editar las próximas dos líneas de código de acuerdo con tus preferencias
-$email_to = "krlacecy@hotmail.es";
-$email_subject = "Contacto desde el sitio web";
+if(isset($_POST['Guardar'])) {
+$para= $_POST['email'];
+$titulo = $_POST['titulo'];
+$mensaje = $_POST['mensaje'];
+$cabeceras = 'From:'. $_POST['email'] . "\r\n" .'Reply-To: admin@cocides.com' . "\r\n";
 
-// Aquí se deberían validar los datos ingresados por el usuario
-if(!isset($_POST['nombre']) ||
-!isset($_POST['telefono']) ||
-!isset($_POST['email']) ||
-!isset($_POST['motivo']) ||
-!isset($_POST['mensaje'])) {
+mail($para, $titulo, $mensaje, $cabeceras);
+ echo "llega email";
 
-echo "<b>Ocurrió un error y el formulario no ha sido enviado. </b><br />";
-echo "Por favor, vuelva atrás y verifique la información ingresada<br />";
-die();
-}
+}else
+    {
+   // echo "no llega email";
+    }
 
-$email_message = "Detalles del formulario de contacto:\n\n";
-$email_message .= "Nombre: " . $_POST['nombre'] . "\n";
-$email_message .= "Telefono: " . $_POST['telefono'] . "\n";
-$email_message .= "E-mail: " . $_POST['email'] . "\n";
-$email_message .= "Motivo: " . $_POST['motivo'] . "\n";
-$email_message .= "Mensaje: " . $_POST['mensaje'] . "\n\n";
-
-
-// Ahora se envía el e-mail usando la función mail() de PHP
-$headers = 'From: '.$email_from."\r\n".
-'Reply-To: '.$email_from."\r\n" .
-'X-Mailer: PHP/' . phpversion();
-@mail($email_to, $email_subject, $email_message, $headers);
-
-echo "¡El formulario se ha enviado con éxito!";
-}
-?>
-
+        ?>
 
         <div id="header1" class="navbar navbar-default navbar-static-top"></div>
 
@@ -87,7 +65,7 @@ echo "¡El formulario se ha enviado con éxito!";
                             <div class="form-group">
                                 <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
                                 <div class="col-lg-4">
-                                    <input type="text" name="nombre" class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} >
+                                    <input type="text" name="nombre" value="<?php echo $nombre ?>"  class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} >
                                 </div>
                             </div>
                             <div class="form-group">
@@ -100,7 +78,7 @@ echo "¡El formulario se ha enviado con éxito!";
                             <div class="form-group">
                                 <label for="Email" class="col-lg-3 control-label">Correo</label>
                                 <div class="col-lg-4">
-                                    <input type="email" name="email" class="form-control" placeholder="Escriba un correo aqui"  required>
+                                    <input type="email" name="email" value="<?php echo $email ?>"  class="form-control" placeholder="Escriba un correo aqui"  required>
                                 </div>
                             </div>
 
