@@ -7,7 +7,7 @@
  */
 $servidor = "localhost";
 $usuario = "root";
-$password = "";
+$password = "gaby";
 $databaseName = "cocides";
 
 //echo "<p>hola mundo desde la clase de conexion..</p>";

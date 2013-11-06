@@ -43,76 +43,69 @@
         <div class="container">
             <div class="tab-content">
                 <div class="tab-pane active" id="regVoluntariado">
+  <style>
+            .loginError
+            {
+                text-align: center;
+                font-weight: bold;
+                font-size: 20px;
+                color:red;
+            }
+        </style>
+                            
+                            <?php
+        if ($_POST['action'] === 'Entrar') {
+            echo '<p class="loginError">Usuario o Contraseña erroneo!</p>';
+            $usuario_vo = $_POST['email_vo'];
+            $pass_vo = $_POST['password_vo'];
 
+            if (isset($usuario_vo) && !empty($pass_vo)) {
+                include "clases/db_connect.php";
+                $result = mysql_query("SELECT nombre_vo, cod_vo  FROM voluntariado where email_vo='$usuario_vo' and password_vo='$pass_vo'");
+                while ($row = mysql_fetch_array($result)) {
+                    $nombre = $row{'nombre_vo'};
+		    $cod_vo = $row{'cod_vo'};
+                    session_start();
+                     $_SESSION['nombre'] = $nombre;
+		    $_SESSION['cod_vo'] = $cod_vo;
+                    echo $_SESSION['nombre'];
+                    header("Location:/ONG/private_content/index.php"); /* Redirect browser */
+                }
+            } else {
+                echo "Por favor introduzca un usuario y contrasenia correctos";
+            }
+        }
+        ?>
                     <div class="panel panel-primary">
                         <div class="panel-heading">Registro</div>
                         <div class="panel-body">
-                            <?php
-                            //echo "hola mundo";
-
-                            if ($_POST['action'] === 'Entrar') {
-                                $usuario_vo = $_POST['email_vo'];
-                                $pass_vo = $_POST['password_vo'];
-
-                                if (isset($usuario_vo) && !empty($pass_vo)) {
-                                    include "clases/db_connect.php";
-                                    $result = mysql_query("SELECT nombre_vo, cod_vo FROM voluntariado where email_vo='$usuario_vo' and password_vo='$pass_vo'");
-                                    if ($result === 0) {
-                                        session_start();
-                                        $_SESSION['error'] = "<P>Por favor introduzca un usuario y contrasenia validos</P>";
-                                    } elseif ($result >= 0) {
-                                        while ($row = mysql_fetch_array($result)) {
-                                            $nombre = $row{'nombre_vo'};
-											 $cod_vo = $row{'cod_vo'};
-                                            session_start();
-                                            $_SESSION['nombre'] = $nombre;
-											$_SESSION['cod_vo'] = $cod_vo;
-                                            echo $_SESSION['nombre'];
-                                            header("Location: http://localhost:8000/private_content/index.php"); /* Redirect browser */
-                                        }
-                                    }
-                                }
-                            } else {
-                                $_SESSION['error'] = "<P>Por favor introduzca un usuario y contrasenia validos</P>";
-                            }
-                            ?>
-                            <div class="col-md-6 col-md-offset-2">
+                                 
+                           
+                            <div class="col-md-6 col-md-offset-3">
                                 <form action="#" method="POST" class="form-horizontal">
                                     <fieldset>
+                                        <br>
                                         <div class="form-group">
                                             <label for="correo" class="col-lg-3 control-label">Correo</label>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-8">
                                                 <input type="email" name="email_vo" placeholder="Ejemplo: ejemplo@dominio.com" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="Contrasenia" class="col-lg-3 control-label">Contraseña</label>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-8">
                                                 <input type="password" name="password_vo" class="form-control" placeholder="Contraseña" required>
                                             </div>
                                         </div>
                                         <div class="errorS">
-                                            <style>
-                                                .errorS
-                                                {
-                                                    color:red;
-
-                                                    font-weight: bold;
-                                                }
-                                                .errorS p
-                                                {
-                                                    text-align: center;
-                                                }
-                                            </style>
-                                            <?php
-                                            echo $_SESSION['error'];
-                                            ?>
+                                            
                                         </div>
                                         <center><input type='submit' name='action' class="btn btn-info btn-large" value='Entrar' /></center>
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
+                       
                     </div>
 
                 </div>

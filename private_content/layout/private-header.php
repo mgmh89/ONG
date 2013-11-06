@@ -25,13 +25,6 @@
         <li><a href="#">Administracion</a><li>
         <li><a href="regDoctor.php">Doctores</a></li>
         <li><a href="paciente.php">Pacientes</a><li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Paciente <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Sub Item</a></li>
-                <li><a href="#">Sub Item</a></li>
-            </ul> 
-        </li> 
         <li><a href="perfilVoluntariado.php">Voluntariados</a></li>
     </ul>
     <form class="navbar-form navbar-left">
@@ -44,11 +37,11 @@
         session_start();
         if (!empty($_SESSION['nombre'])) {
             echo 'Bienvenido: ' . $_SESSION['nombre'] . " ";
-            echo '<a href="../private_content/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a>';
+            echo '<a href="/ONG/private_content/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a>';
         } else {
             //session_start();
             //echo '<h1>HOLA MUNDOOOOOOOOOOO</h1>';
-            header("Location: http://localhost:8000/index.html"); /* Redirect browser */
+            header("Location:/ONG//index.html"); /* Redirect browser */
         }
         ?>
 

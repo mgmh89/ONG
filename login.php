@@ -95,7 +95,7 @@
         </style>
         <?php
         if ($_POST['action'] === 'Entrar') {
-            echo '<p class="loginError">Usuario o Contrasenia erroneo!.</p>';
+            echo '<p class="loginError">Usuario o Contrasenia erroneos!</p>';
             $usuario_doc = $_POST['JVPO'];
             $pass_doc = $_POST['password_doc'];
 
@@ -113,7 +113,7 @@
                     $_SESSION['cod_doc'] = $cod_doc;
                     $_SESSION['permiso_doc'] = $permiso_doc;
                     echo $_SESSION['nombre'];
-                    header("Location: http://localhost:8000/private_content/regDoctor.php"); /* Redirect browser */
+                    header("Location:/ONG/private_content/regDoctor.php"); /* Redirect browser */
                 }
             } else {
                 echo "Por favor introduzca un usuario y contrasenia correctos";

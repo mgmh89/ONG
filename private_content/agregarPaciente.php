@@ -135,7 +135,6 @@
                                         </div> 
 
                                     </div>
-                                    
                                     <div class="form-group">
                                         <div class="col-lg-4"><b>Municipio Paciente:</b><br />
                                             <select name="municipio_pa" class="form-control" required>
@@ -242,7 +241,6 @@
                                         </div> 
 
                                     </div>
-                                    
                                     <div class="form-group">
                                         <div class="col-lg-4"><b>Departamento Paciente:</b><br />
                                             <select name="departamento_pa" class="form-control" required>
