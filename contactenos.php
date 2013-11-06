@@ -21,23 +21,45 @@
 
     </head>
     <body>
-        <?php 
+    
+    
+    <?php
+if(isset($_POST['email'])) {
 
-if(isset($_POST['Guardar'])) {
-$para= $_POST['email'];
-$titulo = 'Hola mundo, prueba de email';
-$mensaje = 'Esta es una prueba de concepto, usando las funciones de php para enviar mensajes.';
-$cabeceras = 'From:'. $_POST['email'] . "\r\n" .'Reply-To: admin@cocides.com' . "\r\n";
+// Debes editar las próximas dos líneas de código de acuerdo con tus preferencias
+$email_to = "krlacecy@hotmail.es";
+$email_subject = "Contacto desde el sitio web";
 
-mail($para, $titulo, $mensaje, $cabeceras);
- echo "llega email";
+// Aquí se deberían validar los datos ingresados por el usuario
+if(!isset($_POST['nombre']) ||
+!isset($_POST['telefono']) ||
+!isset($_POST['email']) ||
+!isset($_POST['motivo']) ||
+!isset($_POST['mensaje'])) {
 
-}else
-    {
-   // echo "no llega email";
-    }
+echo "<b>Ocurrió un error y el formulario no ha sido enviado. </b><br />";
+echo "Por favor, vuelva atrás y verifique la información ingresada<br />";
+die();
+}
 
-        ?>
+$email_message = "Detalles del formulario de contacto:\n\n";
+$email_message .= "Nombre: " . $_POST['nombre'] . "\n";
+$email_message .= "Telefono: " . $_POST['telefono'] . "\n";
+$email_message .= "E-mail: " . $_POST['email'] . "\n";
+$email_message .= "Motivo: " . $_POST['motivo'] . "\n";
+$email_message .= "Mensaje: " . $_POST['mensaje'] . "\n\n";
+
+
+// Ahora se envía el e-mail usando la función mail() de PHP
+$headers = 'From: '.$email_from."\r\n".
+'Reply-To: '.$email_from."\r\n" .
+'X-Mailer: PHP/' . phpversion();
+@mail($email_to, $email_subject, $email_message, $headers);
+
+echo "¡El formulario se ha enviado con éxito!";
+}
+?>
+
 
         <div id="header1" class="navbar navbar-default navbar-static-top"></div>
 
