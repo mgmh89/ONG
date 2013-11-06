@@ -178,7 +178,6 @@
                                             <select name="municipio_pa" class="form-control" required>
 
                                                 <option value="<?php echo $municipio ?>">- Seleccione -</option>
-                                                <option value=""></option>
                                          <option value="Acajutla">Acajutla</option> 
                                          <option value="Agua Caliente">Agua Caliente</option>
                                          <option value="Aguilares ">Aguilares </option>
@@ -279,6 +278,7 @@
                                         </div> 
 
                                     </div>
+                                   </div>  
                                 <div class="form-group">
                                     <label for="departamento" class="col-lg-3 control-label">Departamento</label>
                                     <div class="col-lg-4">

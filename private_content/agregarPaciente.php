@@ -241,6 +241,8 @@
                                         </div> 
 
                                     </div>
+                                    
+                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-4"><b>Departamento Paciente:</b><br />
                                             <select name="departamento_pa" class="form-control" required>
