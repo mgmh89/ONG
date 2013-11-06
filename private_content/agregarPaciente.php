@@ -136,11 +136,10 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-lg-4"><b>Municipio Paciente:</b><br />
+                                        <div class="col-lg-4"><b>Municipio Paciente:</b><br/>
                                             <select name="municipio_pa" class="form-control" required>
 
-                                                <option value="<?php echo $municipio ?>">- Seleccione -</option>
-                                                <option value=""></option>
+                                         <option value="<?php echo $municipio ?>">- Seleccione -</option>
                                          <option value="Acajutla">Acajutla</option> 
                                          <option value="Agua Caliente">Agua Caliente</option>
                                          <option value="Aguilares ">Aguilares </option>
