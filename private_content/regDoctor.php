@@ -202,7 +202,7 @@ $_SESSION["verifica"] = $verifica;
                                 <div class="form-group">
                                     <label for="Fecha_Nacimiento" class="col-lg-3 control-label">Fecha de nacimiento:</label>
                                     <div class="col-lg-3">
-                                        <input type="date" name="fecha_na_doc" value="<?php echo $fechaNa ?>"  class="form-control">
+                                        <input type="date" name="fecha_na_doc" max="1943-01-01" value="<?php echo $fechaNa ?>"  class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">

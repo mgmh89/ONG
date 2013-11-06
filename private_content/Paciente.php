@@ -140,16 +140,16 @@
                                 <div class="form-group">
                                     <label for="fecha_na_pa" class="col-lg-3 control-label">Fecha de nacimiento:</label>
                                     <div class="col-lg-3">
-                                        <input type="date" name="fecha_na_pa" value="<?php echo $fechaNa ?>"   class="form-control"><br>
+                                        <input type="date" name="fecha_na_pa" max="1943-01-01" value="<?php echo $fechaNa ?>"   class="form-control"><br>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="edad_pa" class="col-lg-3 control-label">Edad:</label>
                                     <div class="col-lg-3">
-                                        <input type="number" name="edad_pa" value="<?php echo $edad ?>"   class="form-control"><br>
+                                        <input type="number" name="edad_pa"  min="2" max="75" value="<?php echo $edad ?>"   class="form-control"><br>
                                     </div>
                                 </div>
-
+ 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Genero</label>
                                     <div class="col-lg-4">
