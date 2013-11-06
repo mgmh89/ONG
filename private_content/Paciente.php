@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">    
+                                  
                                     <div class="form-group">
                                         <div class="col-lg-4"><b>Municipio Paciente:</b><br />
                                             <select name="municipio_pa" class="form-control" required>
@@ -274,8 +274,6 @@
                                          <option value="Jutiapa">Jutiapa</option> 
 
                                             </select>
-
-                                        </div> 
 
                                     </div>
                                    </div>  
