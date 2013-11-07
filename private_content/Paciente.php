@@ -402,6 +402,33 @@
                                     <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Limpiar</a>
                                 </div>
                             </form>
+                            <?
+                                include_once '../clases/db_connect.php';
+
+                                echo "<table class=" . $tabla . ">";
+                                echo "<tr>";
+
+                                echo "<td><b>No Expediente</b></td>";
+                                echo "<td><b>Doctor</b></td>";
+                                echo "<td><b>Fecha</b></td>";
+                                echo "<td><b>Hora</b></td>";
+                                echo "</tr>";
+                                $result = mysql_query("SELECT * FROM `cita` where cod_pa=$vcod_pa") or trigger_error(mysql_error());
+                                while ($row = mysql_fetch_array($result)) {
+                                    foreach ($row AS $key => $value) {
+                                        $row[$key] = stripslashes($value);
+                                    }
+                                    echo "<tr>";
+
+                                    echo "<td valign='top'>" . nl2br($row['no_ex']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['nombre_doc']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['fecha_cita']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['hor_cita']) . "</td>";
+                                    echo "<td valign='top'><a href=eliminarCita.php?cod_cita={$row['cod_cita']}>Delete</a></td> ";
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                                ?>
                         </div>
                     </div>
                 </div>
