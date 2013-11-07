@@ -44,24 +44,8 @@
 
     </head>
     <body>
-            <?php 
 
-if(isset($_POST['Guardar'])) {
-$para= $_POST['email'];
-$titulo = $_POST['titulo'];
-$mensaje = $_POST['mensaje'];
-$cabeceras = 'From:'. $_POST['email'] . "\r\n" .'Reply-To: admin@cocides.com' . "\r\n";
-
-mail($para, $titulo, $mensaje, $cabeceras);
- echo "llega email";
-
-}else
-    {
-   // echo "no llega email";
-    }
-
-        ?>
-
+ 
         <div id="header1" class="navbar navbar-default navbar-static-top"></div>
 
         <div id="error"></div>
@@ -75,6 +59,42 @@ mail($para, $titulo, $mensaje, $cabeceras);
                     }
                 });
             });</script> 
+            
+             <?php 
+        if(isset($_POST['boton'])){ 
+            if($_POST['nombre'] == ''){ 
+               
+            }else if($_POST['email'] == '' or !preg_match("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",$_POST['email'])){ 
+                
+            }else if($_POST['asunto'] == ''){ 
+               
+            }else if($_POST['mensaje'] == ''){ 
+               
+            }else{ 
+                $dest = "krlacecy@hotmail.es"; //Email de destino 
+                $nombre = $_POST['nombre']; 
+                $email = $_POST['email']; 
+                $asunto = $_POST['asunto']; //Asunto 
+                $cuerpo = $_POST['mensaje']; //Cuerpo del mensaje 
+                //Cabeceras del correo 
+                $headers = "From: $nombre $emailrn"; //Quien envia? 
+                $headers .= "X-Mailer: PHP5n"; 
+                $headers .= 'MIME-Version: 1.0' . "n"; 
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "rn"; // 
+  
+                if(mail($dest,$asunto,$cuerpo,$headers)){ 
+                    $result = '<div class="result_ok">Email enviado correctamente </div>'; 
+                    // si el envio fue exitoso reseteamos lo que el usuario escribio: 
+                    $_POST['nombre'] = ''; 
+                    $_POST['email'] = ''; 
+                    $_POST['asunto'] = ''; 
+                    $_POST['mensaje'] = ''; 
+                }else{ 
+                    $result = '<div class="result_fail">Hubo un error al enviar el mensaje </div>'; 
+                } 
+            } 
+        } 
+    ?> 
 
 
         <div id="contenedor" class="container">
@@ -88,28 +108,22 @@ mail($para, $titulo, $mensaje, $cabeceras);
                             <div class="form-group">
                                 <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
                                 <div class="col-lg-4">
-                                    <input type="text" name="nombre"  class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Telefono_Contacto" class="col-lg-3 control-label"> Telefono de Contacto </label>
-                                <div class="col-lg-4">
-                                    <input type="tel" name="telefono_contacto" onkeypress="return acceptNum(event)" maxlength="11" class="form-control" required pattern=".{7,15}">
+                                    <input type="text" name="nombre"  class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} value='<?php echo $_POST['nombre']; ?>'>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="Email" class="col-lg-3 control-label">Correo</label>
                                 <div class="col-lg-4">
-                                    <input type="email" name="email"  class="form-control" placeholder="Escriba un correo aqui"  required>
+                                    <input type="email" name="email"  class="form-control" placeholder="Escriba un correo aqui"  required value='<?php echo $_POST['email']; ?>'>
                                 </div>
                             </div>
 
                                 <div class="form-group">
-                                    <label for="motivo" class="col-lg-3 control-label">Motivo</label>
+                                    <label for="asunto" class="col-lg-3 control-label">Motivo</label>
                                     <div class="col-lg-4">
-                                        <select name="departamento_pa" class="form-control" required="">
-                                            <option value="NONE">- Seleccione -</option>
+                                        <select name="asunto" class="form-control" required="">
+           <option value="NONE" value='<?php echo $_POST['asunto']; ?>'>- Seleccione -</option>
                                             <option value="opcion1">Voluntario inscripcion</option>
                                             <option value="opcion2">Duda general</option>
                                             <option value="opcion3">Donaciones</option>
@@ -123,12 +137,16 @@ mail($para, $titulo, $mensaje, $cabeceras);
                             <div class="form-group">    
                                 <label for="Mensaje" class="col-lg-3 control-label">Mensaje</label>
                                 <div class="col-lg-6">
-                                    <textarea name="textarea" class="form-control col-lg-6" rows="10" > </textarea>
+<textarea name="textarea" class="form-control col-lg-6" rows="10" value='<?php echo $_POST['mensaje']; ?>'</textarea>
+                                    </textarea>
 
                                 </div>
                             </div>
-                            <center><button type="submit" name="asdfEnviar" value="Enviar" class="btn btn-primary btn-lg" >Enviar</button></center>
-                            <input type='submit' name='Enviar' class="btn btn-default btn-large" />
+                            <center>
+                            <button type="submit" name="asdfEnviar" value="Enviar" class="btn btn-primary btn-lg" >Enviar</button>
+                            <?php echo $result; ?> 
+                            </center>
+                            
                         </div>
                     </form>
                 </div>       
