@@ -17,7 +17,30 @@
         <script src="assets/js/jquery-v1.10.2.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.validate.js"></script>    
-        <script src="assets/js/modernizr2.6.2.js"></script>       
+        <script src="assets/js/modernizr2.6.2.js"></script>
+   
+    <script language="javascript">
+
+<!--
+
+    var nav4 = window.Event ? true : false;
+
+    function acceptNum(evt)
+
+    {
+
+        // NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57
+
+        var key = nav4 ? evt.which : evt.keyCode;
+
+        return (key <= 13 || (key >= 48 && key <= 57));
+
+    }
+
+//-->
+
+</script>
+       
 
     </head>
     <body>
@@ -65,20 +88,20 @@ mail($para, $titulo, $mensaje, $cabeceras);
                             <div class="form-group">
                                 <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
                                 <div class="col-lg-4">
-                                    <input type="text" name="nombre" value="<?php echo $nombre ?>"  class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} >
+                                    <input type="text" name="nombre"  class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} >
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="Telefono_Contacto" class="col-lg-3 control-label"> Telefono de Contacto </label>
                                 <div class="col-lg-4">
-                                    <input type="tel" name="telefono_contacto" class="form-control" required pattern=".{7,15}">
+                                    <input type="tel" name="telefono_contacto" onkeypress="return acceptNum(event)" maxlength="11" class="form-control" required pattern=".{7,15}">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="Email" class="col-lg-3 control-label">Correo</label>
                                 <div class="col-lg-4">
-                                    <input type="email" name="email" value="<?php echo $email ?>"  class="form-control" placeholder="Escriba un correo aqui"  required>
+                                    <input type="email" name="email"  class="form-control" placeholder="Escriba un correo aqui"  required>
                                 </div>
                             </div>
 

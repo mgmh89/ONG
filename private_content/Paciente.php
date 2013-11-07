@@ -23,7 +23,27 @@
         <script src="../assets/js/holder.js"></script>
         <script src="../assets/js/pacientedatos.js"></script>
         <script src="../assets/js/citas.js"></script>
+ <script language="javascript">
 
+<!--
+
+    var nav4 = window.Event ? true : false;
+
+    function acceptNum(evt)
+
+    {
+
+        // NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57
+
+        var key = nav4 ? evt.which : evt.keyCode;
+
+        return (key <= 13 || (key >= 48 && key <= 57));
+
+    }
+
+//-->
+
+</script>
 
         <style>
             .container
@@ -167,7 +187,8 @@
                                 <div class="form-group">    
                                     <label for="direccionPaciente" class="col-lg-3 control-label">Direccion actual</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="<?php echo $direccion ?>"  name="direccion_pa" class="form-control" placeholder="Escriba la direccion" required>
+                                        <input type="text" value="<?php echo $direccion ?>" 
+onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="form-control" placeholder="Escriba la direccion" required>
 
                                     </div>
                                 </div>

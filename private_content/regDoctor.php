@@ -28,6 +28,28 @@ $_SESSION["verifica"] = $verifica;
         <script src="../assets/js/modernizr2.6.2.js"></script>
         <script src="../assets/js/holder.js"></script>
         <script src="../assets/js/validarDoctores.js "></script>
+  
+   <script language="javascript">
+
+<!--
+
+    var nav4 = window.Event ? true : false;
+
+    function acceptNum(evt)
+
+    {
+
+        // NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57
+
+        var key = nav4 ? evt.which : evt.keyCode;
+
+        return (key <= 13 || (key >= 48 && key <= 57));
+
+    }
+
+//-->
+
+</script>
 
         <script>
             // fallback para el datepicker con jquery
@@ -221,7 +243,7 @@ $_SESSION["verifica"] = $verifica;
                                 <div class="form-group">
                                     <label for="telefono" class="col-lg-3 control-label">Telefono</label>
                                     <div class="col-lg-4">
-                                        <input type="tel" name="telefono_doc" value="<?php echo $telefono ?>"  placeholder="Escriba un numero de telefono" class="form-control" required>
+                                        <input type="tel" name="telefono_doc" value="<?php echo $telefono ?>"  placeholder="Escriba un numero de telefono" class="form-control" onkeypress="return acceptNum(event)" maxlength="11" required>
                                     </div>
                                 </div>
 
