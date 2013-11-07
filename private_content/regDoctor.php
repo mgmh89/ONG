@@ -300,8 +300,7 @@ $_SESSION["verifica"] = $verifica;
                                     }
                                     $permiso_doc = $_SESSION['permiso_doc'];
                                     if ($permiso_doc === "S") {
-                                        $SetPermiso = "<a href=eliminarDoctor.php?id={$row['cod_doc']
-                                                }>Eliminar</a>";
+                                        $SetPermiso = "<a href=eliminarDoctor.php?id={$row['cod_doc']}>Eliminar</a>";
                                     } elseif ($permiso_doc === "N") {
                                         $SetPermiso = "No Permitido";
                                     }
