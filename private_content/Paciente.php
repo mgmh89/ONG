@@ -211,7 +211,7 @@
 
                             </form>
                             <div class="table-responsive">
-                                <?
+                                <?php
                                 include_once '../clases/db_connect.php';
                                 $tabla = "table ";
                                 echo "<table class=" . $tabla . ">";
@@ -330,7 +330,7 @@
                             </form>
 
                             <div class="table-responsive">      
-                                <?
+                                <?php
                                 include_once '../clases/db_connect.php';
 
                                 echo "<table class=" . $tabla . ">";
@@ -402,7 +402,7 @@
                                     <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Limpiar</a>
                                 </div>
                             </form>
-                            <?
+                            <?php
                                 include_once '../clases/db_connect.php';
 
                                 echo "<table class=" . $tabla . ">";
