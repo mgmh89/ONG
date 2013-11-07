@@ -89,6 +89,21 @@
                     $_POST['email'] = ''; 
                     $_POST['asunto'] = ''; 
                     $_POST['mensaje'] = ''; 
+					
+					foreach($_POST AS $key => $value) {
+                    $_POST[$key] = mysql_real_escape_string($value);
+                } 
+
+                $sql = "INSERT INTO `contactenos` (`nombre`,`email`,`asunto`,`mensaje`) VALUES ('{$_POST['nombre']}','{$_POST['email']}','{$_POST['asunto']}','{$_POST['mensaje']}')";
+                mysql_query($sql) or die(mysql_error());
+				
+				 $result = '<div class="result_ok">Email enviado correctamente </div>';
+                // si el envio fue exitoso reseteamos lo que el usuario escribio:
+                $_POST['nombre'] = '';
+                $_POST['email'] = '';
+                $_POST['asunto'] = '';
+                $_POST['mensaje'] = '';
+					
                 }else{ 
                     $result = '<div class="result_fail">Hubo un error al enviar el mensaje </div>'; 
                 } 
