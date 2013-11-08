@@ -17,7 +17,7 @@ and open the template in the editor.
             $id = (int) $_GET['id'];
             mysql_query("DELETE FROM `doctor` WHERE `cod_doc` = '$id' ");
             echo (mysql_affected_rows()) ? "Row deleted.<br /> " : "Nothing deleted.<br /> ";
-            header("Location: http://localhost:8000/private_content/regDoctor.php"); /* Redirect browser */
+            header("Location: /ONG/private_content/regDoctor.php"); /* Redirect browser */
             ?> 
         </div>
     </body>

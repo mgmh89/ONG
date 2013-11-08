@@ -23,27 +23,7 @@
         <script src="../assets/js/holder.js"></script>
         <script src="../assets/js/pacientedatos.js"></script>
         <script src="../assets/js/citas.js"></script>
- <script language="javascript">
 
-<!--
-
-    var nav4 = window.Event ? true : false;
-
-    function acceptNum(evt)
-
-    {
-
-        // NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57
-
-        var key = nav4 ? evt.which : evt.keyCode;
-
-        return (key <= 13 || (key >= 48 && key <= 57));
-
-    }
-
-//-->
-
-</script>
 
         <style>
             .container
@@ -91,8 +71,8 @@
             include_once 'layout/private-header.php';
             if (isset($_GET['cod_pa'])) {
                 include_once '../clases/db_connect.php';
-                $vcod_pa = $_GET['cod_pa'];
-                $getPaciente = mysql_query("SELECT * FROM paciente where cod_pa=$vcod_pa");
+                $cod_pa = $_GET['cod_pa'];
+                $getPaciente = mysql_query("SELECT * FROM paciente where cod_pa=$cod_pa");
                 while ($row = mysql_fetch_array($getPaciente)) {
                     $nombre = $row{'nombre_pa'};
                     $apellido = $row{'apellido_pa'};
@@ -104,33 +84,64 @@
                     $municipio = $row{'municipio_pa'};
                     $departamento = $row{'departamento_pa'};
                 }
-                $getExped = mysql_query("SELECT cod_pa FROM expediente where cod_pa in (SELECT cod_pa from expediente where cod_pa=$vcod_pa)");
+                $getExped = mysql_query("SELECT cod_pa FROM paciente where cod_pa in (SELECT cod_pa from paciente where cod_pa=$cod_pa)");
                 while ($row = mysql_fetch_array($getExped)) {
                     $cod_expediente = $row{'cod_pa'};
                 }
             }
             ?>
+            
+            
+            
+         
+            
+            
+            
+            
         </div>
         <div id="contenedor" class="container">
             <div>
-                <?php
-                if (isset($_POST['submitted'])) {
+               <?php
+        //include database configuration
+
+        if (isset($_POST['guardar'])) {
+
+            include_once '../clases/db_connect.php';
+            //sql insert statement
+            $sql = "insert into paciente(nombre_pa, apellido_pa, fecha_na_pa, edad_pa, genero_pa, telefono_pa, direccion_pa,municipio_pa, departamento_pa)
+                values('{$_POST['nombre_pa']}', '{$_POST['apellido_pa']}', '{$_POST['fecha_na_pa']}', '{$_POST['edad_pa']}', '{$_POST['genero_pa']}', '{$_POST['telefono_pa']}', '{$_POST['direccion_pa']}', '{$_POST['municipio_pa']}','{$_POST['departamento_pa']}')";
+            //insert query to the database
+            if (mysql_query($sql)) {
+                session_start();
+                //if successful query
+                echo "<script>alert('registro guardado correctamente!')</script>";
+                $sql = "";
+
+                $_SESSION['nombre'] = $_POST['nombre_pa'];
+                header("Location: /ONG/private_content/Paciente.php"); /* Redirect browser */
+                exit();
+            } else {
+                //if query failed
+                die($sql . ">>" . mysql_error());
+            }
+        }
+        ?>
+                
+                   <?php
+                   
+                if (isset($_POST['modificar'])) {
                     foreach ($_POST AS $key => $value) {
                         $_POST[$key] = mysql_real_escape_string($value);
                     }
-                    $sql = "UPDATE `paciente` SET  `nombre_pa` =  '{$_POST['nombre_pa']}' ,  `apellido_pa` =  '{$_POST['apellido_pa']}' ,  `fecha_na_pa` =  '{$_POST['fecha_na_pa']}' ,  `edad_pa` =  '{$_POST['edad_pa']}' ,  `genero_pa` =  '{$_POST['genero_pa']}' ,  `telefono_pa` =  '{$_POST['telefono_pa']}' ,  `direccion_pa` =  '{$_POST['direccion_pa']}' ,  `municipio_pa` =  '{$_POST['municipio_pa']}' ,  `departamento_pa` =  '{$_POST['departamento_pa']}'   WHERE `cod_pa` = $vcod_pa ";
+                    
+                    $sql = "UPDATE paciente SET  `nombre_pa` =  '{$_POST['nombre_pa']}' ,  `apellido_pa` =  '{$_POST['apellido_pa']}' ,  `fecha_na_pa` =  '{$_POST['fecha_na_pa']}' ,  `edad_pa` =  '{$_POST['edad_pa']}' ,  `genero_pa` =  '{$_POST['genero_pa']}' ,  `telefono_pa` =  '{$_POST['telefono_pa']}' ,  `direccion_pa` =  '{$_POST['direccion_pa']}' ,  `municipio_pa` =  '{$_POST['municipio_pa']}' ,  `departamento_pa` =  '{$_POST['departamento_pa']}'   WHERE `cod_pa` = $cod_pa";
                     mysql_query($sql) or die(mysql_error());
-                    echo (mysql_affected_rows()) ? "Paciente actualizado correctamente!.<br />" : "Error al actualizar!. <br />";
-                } elseif (isset($_POST['submitted3'])) {
-                    foreach ($_POST AS $key => $value) {
-                        $_POST[$key] = mysql_real_escape_string($value);
-                    }
-                    $sql = "INSERT INTO `expediente` ( `cod_ex` ,  `no_ex` ,  `referido` ,  `at_medicos` ,  `cod_cita` ,  `consulta_pa` ,  `antecedentes_pa` ,`cod_pa` ) VALUES(  '{$_POST['cod_ex']}' ,  '{$_POST['no_ex']}' ,  '{$_POST['referido']}' ,  '{$_POST['at_medicos']}' ,  '{$_POST['cod_cita']}' ,  '{$_POST['consulta_pa']}' ,  '{$_POST['antecedentes_pa']}', $vcod_pa  ) ";
-                    mysql_query($sql) or die(mysql_error());
-                    echo "Consulta guardada!.<br />";
-                    echo "<a href='Paciente.php'>Regresar</a>";
+                    echo (mysql_affected_rows()) ? "Voluntario se actualizado correctamente!.<br />" : "Error al actualizar!. <br />";
+                } else {
+                    
                 }
                 ?>
+                
             </div>
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#Datos">Datos</a></li>
@@ -143,7 +154,8 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Paciente</div>
                         <div class="panel-body">
-                            <a href=agregarPaciente.php>Nuevo Paciente</a>
+                            <!--  <a href=agregarPaciente.php>Nuevo Paciente</a> -->
+                           
                             <form action="#" id="paciente" method="POST" class="form-horizontal" id="pacientedatos">
                                 <div class="form-group">
                                     <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
@@ -160,22 +172,25 @@
                                 <div class="form-group">
                                     <label for="fecha_na_pa" class="col-lg-3 control-label">Fecha de nacimiento:</label>
                                     <div class="col-lg-3">
-                                        <input type="date" name="fecha_na_pa" max="1943-01-01" value="<?php echo $fechaNa ?>"   class="form-control"><br>
+                                        <input type="date" name="fecha_na_pa" value="<?php echo $fechaNa ?>"   class="form-control"><br>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="edad_pa" class="col-lg-3 control-label">Edad:</label>
+                                    <label for="edad_pa" class="col-lg-3 control-label">Edad</label>
                                     <div class="col-lg-3">
-                                        <input type="number" name="edad_pa" min="3" max="70" value="<?php echo $edad ?>"   class="form-control"><br>
+                                        <input type="number" name="edad_pa" value="<?php echo $edad ?>"   class="form-control"><br>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">Genero</label>
+                                    <label  class="col-lg-3 control-label">Genero</label>
                                     <div class="col-lg-4">
-                                        <input type="radio" name="genero_pa" value="Masculino" checked />Masculino<br />
-                                        <input type="radio" name="genero_pa" value="Femenino" />Femenino<br />
-                                    </div>  
+                                        <select name="genero_pa" class="form-control" required>
+                                            <option value="<?php echo $genero ?>">- Seleccione -</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -187,24 +202,121 @@
                                 <div class="form-group">    
                                     <label for="direccionPaciente" class="col-lg-3 control-label">Direccion actual</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="<?php echo $direccion ?>" 
-onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="form-control" placeholder="Escriba la direccion" required>
+                                        <input type="text" value="<?php echo $direccion ?>"  name="direccion_pa" class="form-control" placeholder="Escriba la direccion" required>
 
                                     </div>
                                 </div>
 
-                                <div class="form-group">    
-                                    <label for="municipioPaciente" class="col-lg-3 control-label">Municipio</label>
-                                    <div class="col-lg-6">
-                                        <input type="text" value="<?php echo $municipio ?>"  name="municipio_pa" class="form-control" placeholder="Municipio" required>
+                                <div class="form-group">
+                                    <label for="municipio_pa" class="col-lg-3 control-label">Municipio</label>
+                                        <div class="col-lg-4">
+                                         <select name="municipio_pa" class="form-control" required>
+                                         <option value="<?php echo $municipio ?>">- Seleccione -</option>
+                                         <option value="Acajutla">Acajutla</option> 
+                                         <option value="Agua Caliente">Agua Caliente</option>
+                                         <option value="Aguilares ">Aguilares </option>
+                                         <option value="Ahuachapán">Ahuachapán</option> 
+                                         <option value="Alegría">Alegría</option>
+                                         <option value="Anamorós ">Anamorós </option>
+                                         <option value="Antiguo Cuscatlán ">Antiguo Cuscatlán </option>
+                                         <option value="Apaneca">Apaneca</option> 
+                                         <option value="Apastepeque">Apastepeque</option> 
+                                         <option value="Apopa">Apopa</option> 
+                                         <option value="Arambala">Arambala</option> 
+                                         <option value="Arcatao">Arcatao</option> 
+                                         <option value="Armenia">Armenia</option> 
+                                         <option value="Atiquizaya">Atiquizaya</option> 
+                                         <option value="Ayutuxtepeque">Ayutuxtepeque</option> 
+                                         <option value="Azacualpa ">Azacualpa </option>
+                                         <option value="Berlín">Berlín</option> 
+                                         <option value="Bolivar ">Bolivar </option>
+                                         <option value="Cacaopera">Cacaopera</option> 
+                                         <option value="California ">California </option>
+                                         <option value="Caluco">Caluco</option> 
+                                         <option value="Candelaria">Candelaria</option>
+                                         <option value="Candelaria de la Frontera ">Candelaria de la Frontera </option>
+                                         <option value="Carolina">Carolina</option> 
+                                         <option value="Chalatenango (ciudad)">Chalatenango (ciudad)</option> 
+                                         <option value="Chalchuapa">Chalchuapa</option> 
+                                         <option value="Chilanga">Chilanga</option> 
+                                         <option value="Chiltiupán ">Chiltiupán </option>
+                                         <option value="Chinameca">Chinameca</option> 
+                                         <option value="Chapeltique">Chapeltique</option> 
+                                         <option value="Chirilagua">Chirilagua</option> 
+                                         <option value="Cinquera">Cinquera</option> 
+                                         <option value="Citalá">Citalá</option> 
+                                         <option value="Ciudad Arce">Ciudad Arce</option> 
+                                         <option value="Ciudad Barrios">Ciudad Barrios</option> 
+                                         <option value="Ciudad Delgado">Ciudad Delgado</option> 
+                                         <option value="Coatepeque">Coatepeque</option> 
+                                         <option value="Cojutepeque">Cojutepeque</option> 
+                                         <option value="Colón">Colón</option> 
+                                         <option value="Comacarán">Comacarán</option> 
+                                         <option value="Comalapa">Comalapa</option> 
+                                         <option value="Comasagua ">Comasagua </option>
+                                         <option value="Concepción Batres ">Concepción Batres </option>
+                                         <option value="Concepción de Ataco">Concepción de Ataco</option> 
+                                         <option value="Concepción de Oriente ">Concepción de Oriente </option>
+                                         <option value="Concepción Quezaltepeque">Concepción Quezaltepeque</option> 
+                                         <option value="Conchagua ">Conchagua </option>
+                                         <option value="Corinto">Corinto</option> 
+                                         <option value="Cuisnahuat">Cuisnahuat</option> 
+                                         <option value="Cuscatancingo">Cuscatancingo</option> 
+                                         <option value="Cuyultitán">Cuyultitán</option> 
+                                         <option value="Delicias de Concepción ">Delicias de Concepción </option>
+                                         <option value="Dolores">Dolores</option> 
+                                         <option value="Dulce Nombre de María">Dulce Nombre de María</option> 
+                                         <option value="El Carmen (Cuscatlán)">El Carmen (Cuscatlán)</option> 
+                                         <option value="El Carmen (La Unión)">El Carmen (La Unión)</option> 
+                                         <option value="El Carrizal">El Carrizal</option> 
+                                         <option value="El Congo">El Congo</option> 
+                                         <option value="El Divisadero ">El Divisadero </option>
+                                         <option value="El Paisnal ">El Paisnal</option>
+                                         <option value="El Paraíso ">El Paraíso </option>
+                                         <option value="El Porvenir">El Porvenir</option> 
+                                         <option value="El Refugio ">El Refugio </option>
+                                         <option value="El Rosario (Cuscatlán)">El Rosario (Cuscatlán)</option> 
+                                         <option value="El Rosario (La Paz)">El Rosario (La Paz)</option> 
+                                         <option value="El Rosario (Morazán) ">El Rosario (Morazán) </option>
+                                         <option value="El Sauce">El Sauce</option> 
+                                         <option value="El Tránsito">El Tránsito</option> 
+                                         <option value="El Triunfo">El Triunfo</option> 
+                                         <option value="Ereguayquín">Ereguayquín</option> 
+                                         <option value="Estanzuelas">Estanzuelas</option> 
+                                         <option value="Guacotecti ">Guacotecti </option>
+                                         <option value="Guadalupe">Guadalupe</option> 
+                                         <option value="Gualococti">Gualococti</option> 
+                                         <option value="Guatajiagua ">Guatajiagua </option>
+                                         <option value="Guaymango">Guaymango</option> 
+                                         <option value="Guazapa">Guazapa</option> 
+                                         <option value="Huizúcar">Huizúcar</option> 
+                                         <option value="Ilobasco ">Ilobasco </option>
+                                         <option value="Ilopango">Ilopango</option> 
+                                         <option value="Intipucá">Intipucá</option> 
+                                         <option value="Izalco ">Izalco </option>
+                                         <option value="Jayaque">Jayaque</option> 
+                                         <option value="Jerusalén ">Jerusalén </option>
+                                         <option value="Jicalapa">Jicalapa</option> 
+                                         <option value="Jiquilisco ">Jiquilisco </option>
+                                         <option value="Joateca">Joateca</option> 
+                                         <option value="Jocoaitique">Jocoaitique</option> 
+                                         <option value="Jocoro">Jocoro</option> 
+                                         <option value="Juayúa">Juayúa</option> 
+                                         <option value="Jucuapa">Jucuapa</option> 
+                                         <option value="Jucuarán">Jucuarán</option> 
+                                         <option value="Jujutla">Jujutla</option> 
+                                         <option value="Jutiapa">Jutiapa</option> 
+
+                                            </select>
 
                                     </div>
-                                </div>
+                                   </div> 
+                                
                                 <div class="form-group">
                                     <label for="departamento" class="col-lg-3 control-label">Departamento</label>
                                     <div class="col-lg-4">
                                         <select name="departamento_pa" class="form-control" required="">
-                                            <option value="NONE">- Seleccione -</option>
+                                            <option value="<?php echo $departamento ?>">- Seleccione -</option>
                                             <option value="San Salvador">San Salvador</option>
                                             <option value="La Paz">La Paz</option>
                                             <option value="San Miguel">San Miguel</option>
@@ -226,7 +338,9 @@ onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="f
                                     <br>
                                     <br>
                                     <center>
-                                        <p><input type='submit' class="btn btn-primary btn-large" value='Guardar Cambios' /><input type='hidden' value='1' name='submitted' /> 
+                                        <p><input type='submit' name="guardar" class="btn btn-primary btn-large" value='Guardar' />
+                                            <input type="submit" name="modificar" value="Modificar" class="btn btn-primary btn-large">
+                                            <input type='hidden' value='1' name='submitted' /> 
                                     </center>
                                 </div>
 
@@ -290,7 +404,7 @@ onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="f
                                 <div class="form-group">
                                     <label for="Edad Paciente" class="col-lg-3 control-label">Edad</label>
                                     <div class="col-lg-3">
-                                        <input type="text" name="edad_pa" min="3" max="70" value="<?php echo $edad ?>"  class="form-control" required><br>
+                                        <input type="text" name="edad_pa" value="<?php echo $edad ?>"  class="form-control" required><br>
                                     </div>
                                 </div>
 
@@ -364,7 +478,7 @@ onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="f
                                 echo "<td><b>Consulta Pa</b></td>";
                                 echo "<td><b>Antecedentes Pa</b></td>";
                                 echo "</tr>";
-                                $result = mysql_query("SELECT * FROM `expediente` where cod_pa=$vcod_pa") or trigger_error(mysql_error());
+                                $result = mysql_query("SELECT * FROM `expediente` where cod_pa=$cod_pa") or trigger_error(mysql_error());
                                 while ($row = mysql_fetch_array($result)) {
                                     foreach ($row AS $key => $value) {
                                         $row[$key] = stripslashes($value);
@@ -387,6 +501,11 @@ onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="f
                     </div>
                 </div>
 
+                
+                
+             
+                
+                
                 <div class="tab-pane" id="Citas">
                     <div class="panel panel-primary">
 
@@ -418,9 +537,12 @@ onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="f
                                     </div>
                                     <br>
                                     <br>
-
-                                    <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
-                                    <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Limpiar</a>
+                                    <br>
+                                    <input type='submit' name="g" class="btn btn-primary btn-large" value='Guardar' />
+                                            <input type="submit" name="m" value="Modificar" class="btn btn-primary btn-large">
+                                            <br>
+                                            <br>
+                                    
                                 </div>
                             </form>
                             <?php
@@ -434,7 +556,7 @@ onkeypress="return acceptNum(event)" maxlength="11" name="direccion_pa" class="f
                                 echo "<td><b>Fecha</b></td>";
                                 echo "<td><b>Hora</b></td>";
                                 echo "</tr>";
-                                $result = mysql_query("SELECT * FROM `cita` where cod_pa=$vcod_pa") or trigger_error(mysql_error());
+                                $result = mysql_query("SELECT * FROM `cita` where cod_pa=$cod_pa") or trigger_error(mysql_error());
                                 while ($row = mysql_fetch_array($result)) {
                                     foreach ($row AS $key => $value) {
                                         $row[$key] = stripslashes($value);

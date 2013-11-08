@@ -2,6 +2,7 @@
 session_start();
 $verifica = 1;
 $_SESSION["verifica"] = $verifica;
+
 ?> 
 
 <!DOCTYPE html>
@@ -28,28 +29,6 @@ $_SESSION["verifica"] = $verifica;
         <script src="../assets/js/modernizr2.6.2.js"></script>
         <script src="../assets/js/holder.js"></script>
         <script src="../assets/js/validarDoctores.js "></script>
-  
-   <script language="javascript">
-
-<!--
-
-    var nav4 = window.Event ? true : false;
-
-    function acceptNum(evt)
-
-    {
-
-        // NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57
-
-        var key = nav4 ? evt.which : evt.keyCode;
-
-        return (key <= 13 || (key >= 48 && key <= 57));
-
-    }
-
-//-->
-
-</script>
 
         <script>
             // fallback para el datepicker con jquery
@@ -100,7 +79,9 @@ $_SESSION["verifica"] = $verifica;
     </head>
     <body>
 
-
+        
+        
+        
         <div id="header" class="navbar navbar-default navbar-static-top">
             <?php
             include_once 'layout/private-header.php';
@@ -137,12 +118,12 @@ $_SESSION["verifica"] = $verifica;
                 foreach ($_POST AS $key => $value) {
                     $_POST[$key] = mysql_real_escape_string($value);
                 }
-                $sql = "INSERT INTO `doctor` ( `cod_doc` ,  `nombre_doc` ,  `apellido_doc` ,  `JVPO` ,  `genero_doc` ,  `fecha_na_doc` ,  `password_doc` ,  `telefono_doc` ,  `direccion_doc` ,  `departamento_doc` ,  `cod_as`  ) VALUES(  '{$_POST['cod_doc']}' ,  '{$_POST['nombre_doc']}' ,  '{$_POST['apellido_doc']}' , '{$_POST['JVPO']}' ,  '{$_POST['genero_doc']}' ,  '{$_POST['fecha_na_doc']}' ,  '{$_POST['password_doc']}' ,'{$_POST ['telefono_doc']}' ,  '{$_POST['direccion_doc']}' ,  '{$_POST['departamento_doc']
-                        }' , '{$_POST['cod_as']
+                $sql = "INSERT INTO doctor( `nombre_doc` ,  `apellido_doc` ,  `JVPO` ,  `genero_doc` ,  `fecha_na_doc` ,  `password_doc` ,  `telefono_doc` ,  `direccion_doc` ,  `departamento_doc`) VALUES( '{$_POST['nombre_doc']}' ,  '{$_POST['apellido_doc']}' , '{$_POST['JVPO']}' ,  '{$_POST['genero_doc']}' ,  '{$_POST['fecha_na_doc']}' ,  '{$_POST['password_doc']}' ,'{$_POST ['telefono_doc']}' ,  '{$_POST['direccion_doc']}' ,  '{$_POST['departamento_doc']
                         }'  ) ";
+                        
                 mysql_query($sql) or die(mysql_error());
                 echo "<p class='succesUs'>Guardado Correctamente!.</p>";
-                header("Location: http://localhost:8000/regDoctor.php"); /* Redirect browser */
+                header("Location:/ONG/private_content/regDoctor.php"); /* Redirect browser */
                 //else if que detecta la accion del boton presionado y actualiza el dr actualmente logueado
             } elseif ($_POST['Modificar']) {
                 include_once '../clases/db_connect.php';
@@ -150,14 +131,14 @@ $_SESSION["verifica"] = $verifica;
                 foreach ($_POST AS $key => $value) {
                     $_POST[$key] = mysql_real_escape_string($value);
                 }
-                $sql = "UPDATE `doctor` SET `nombre_doc` =  '{$_POST['nombre_doc']}' ,  `apellido_doc` =  '{$_POST['apellido_doc']}' ,  `JVPO` =  '{$_POST['JVPO']}' ,  `genero_doc` =  '{$_POST['genero_doc']}' ,  `fecha_na_doc` =  '{$_POST['fecha_na_doc']}' ,  `password_doc` =  '{$_POST['password_doc']}' ,  `telefono_doc` =  '{$_POST['telefono_doc']}' ,  `direccion_doc` =  '{$_POST['direccion_doc']}' ,  `departamento_doc` =  '{$_POST['departamento_doc']}' ,  `cod_as` =  '{$_POST['cod_as']}'   WHERE `cod_doc` = $id ";
+                $sql = "UPDATE doctor SET `nombre_doc` =  '{$_POST['nombre_doc']}' ,  `apellido_doc` =  '{$_POST['apellido_doc']}' ,  `JVPO` =  '{$_POST['JVPO']}' ,  `genero_doc` =  '{$_POST['genero_doc']}' ,  `fecha_na_doc` =  '{$_POST['fecha_na_doc']}' ,  `password_doc` =  '{$_POST['password_doc']}' ,  `telefono_doc` =  '{$_POST['telefono_doc']}' ,  `direccion_doc` =  '{$_POST['direccion_doc']}' ,  `departamento_doc` =  '{$_POST['departamento_doc']}'   WHERE `cod_doc` = $id ";
                 mysql_query($sql) or die(mysql_error());
                 echo (mysql_affected_rows()) ? "<p class='succesUs'>Usuario editado correctamente!</p>.<br />" : "<p class='errorUs'>Usuario no editado</p> <br />";
-                header("Location: http://localhost:8000/regDoctor.php"); /* Redirect browser */
+                header("Location: /ONG/private_content/regDoctor.php"); /* Redirect browser */
             }
         } else {
             echo "Genial! evitamos un doble sumit!!!";
-            header("Location: http://localhost:8000/regDoctor.php"); /* Redirect browser */
+            header("Location: /ONG/private_content/regDoctor.php"); /* Redirect browser */
         }
         ?>
 
@@ -205,7 +186,7 @@ $_SESSION["verifica"] = $verifica;
                                 <div class="form-group">
                                     <label for="sexo" class="col-lg-3 control-label">Sexo</label>
                                     <div class="col-lg-4">
-                                        <select name="genero_doc" class="form-control" required="">
+                                        <select name="genero_doc" class="form-control" required="true">
                                             <option value="<?php echo $genero ?>" >- Seleccione -</option>
                                             <option value="M">Masculino</option>
                                             <option value="F">Femenino</option>
@@ -243,7 +224,7 @@ $_SESSION["verifica"] = $verifica;
                                 <div class="form-group">
                                     <label for="telefono" class="col-lg-3 control-label">Telefono</label>
                                     <div class="col-lg-4">
-                                        <input type="tel" name="telefono_doc" value="<?php echo $telefono ?>"  placeholder="Escriba un numero de telefono" class="form-control" onkeypress="return acceptNum(event)" maxlength="11" required>
+                                        <input type="tel" name="telefono_doc" value="<?php echo $telefono ?>"  placeholder="Escriba un numero de telefono" class="form-control" required>
                                     </div>
                                 </div>
 
@@ -322,7 +303,8 @@ $_SESSION["verifica"] = $verifica;
                                     }
                                     $permiso_doc = $_SESSION['permiso_doc'];
                                     if ($permiso_doc === "S") {
-                                        $SetPermiso = "<a href=eliminarDoctor.php?id={$row['cod_doc']}>Eliminar</a>";
+                                        $SetPermiso = "<a href=eliminarDoctor.php?id={$row['cod_doc']
+                                                }>Eliminar</a>";
                                     } elseif ($permiso_doc === "N") {
                                         $SetPermiso = "No Permitido";
                                     }

@@ -14,7 +14,7 @@ and open the template in the editor.
         $cod_pa = (int) $_GET['cod_pa'];
         mysql_query("DELETE FROM `expediente` WHERE `cod_pa` = '$cod_pa' ");
         echo (mysql_affected_rows()) ? "Row deleted.<br /> " : "Nothing deleted.<br /> ";
-        header("Location: http://localhost:8000/private_content/paciente.php");
+        header("Location: /ONG/private_content/paciente.php");
         ?>
     </body>
 </html>

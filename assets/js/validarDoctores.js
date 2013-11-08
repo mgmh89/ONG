@@ -22,7 +22,7 @@ $(document).ready(function() {
             genero_doc:
                     {
                         required: true,
-                        patterner:[0,10]
+                       
 
                     },
             JVPO:
@@ -74,7 +74,7 @@ $(document).ready(function() {
             departamento_doc:
                     {
                         required: true,
-                        patterner:[0,10]
+                       
 
                     }
         }

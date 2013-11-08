@@ -22,8 +22,8 @@
 <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
         <li><a href="index.php">Inicio</a></li>
-        <li><a href="#">Administracion</a><li>
-        <li><a href="regDoctor.php">Doctores</a></li>
+        <li><a href="regDoctor.php">Administración</a><li>
+        
         <li><a href="paciente.php">Pacientes</a><li>
         <li><a href="perfilVoluntariado.php">Voluntariados</a></li>
     </ul>

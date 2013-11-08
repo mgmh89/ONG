@@ -37,27 +37,6 @@
             });
         </script>
 
- <script language="javascript">
-
-<!--
-
-    var nav4 = window.Event ? true : false;
-
-    function acceptNum(evt)
-
-    {
-
-        // NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57
-
-        var key = nav4 ? evt.which : evt.keyCode;
-
-        return (key <= 13 || (key >= 48 && key <= 57));
-
-    }
-
-//-->
-
-</script>
         <style>
             .container
             {
@@ -100,7 +79,7 @@
                 $sql = "";
 
                 $_SESSION['nombre'] = $_POST['nombre_vo'];
-                header("Location: http://localhost:8000/private_content/index.php"); /* Redirect browser */
+                header("Location: /ONG/private_content/perfilVoluntariado.php"); /* Redirect browser */
                 exit();
             } else {
                 //if query failed
@@ -141,8 +120,7 @@
                     $genero = $row{'genero_vo'};
                     $telefono = $row{'telefono_vo'};
                     $direccion = $row{'direccion_vo'};
-                    $municipio = $row{'municipio_vo'};
-                    $departamento = $row{'departamento_vo'};
+             $departamento = $row{'departamento_vo'};
 					$email = $row{'email_vo'};
 					$password = $row{'password_vo'};
                 }
@@ -151,11 +129,11 @@
         <div class="container">
         
         <?php
-                if (isset($_POST['submitted'])) {
+                if (isset($_POST['Modificar'])) {
                     foreach ($_POST AS $key => $value) {
                         $_POST[$key] = mysql_real_escape_string($value);
                     }
-                    $sql = "UPDATE `voluntariado` SET  `nombre_vo` =  '{$_POST['nombre_vo']}' ,  `apellido_vo` =  '{$_POST['apellido_vo']}' ,  `fecha_na_vo` =  '{$_POST['fecha_na_vo']}' ,  `edad_vo` =  '{$_POST['edad_vo']}' ,  `genero_vo` =  '{$_POST['genero_vo']}' ,  `telefono_vo` =  '{$_POST['telefono_vo']}' ,  `direccion_vo` =  '{$_POST['direccion_vo']}' ,  `municipio_vo` =  '{$_POST['municipio_vo']}' ,  `departamento_vo` =  '{$_POST['departamento_vo']}',  `email_vo` =  '{$_POST['email_vo']}',  `password_vo` =  '{$_POST['password_vo']}'   WHERE `cod_vo` = $cod_vo ";
+                    $sql = "UPDATE `voluntariado` SET  `nombre_vo` =  '{$_POST['nombre_vo']}' ,  `apellido_vo` =  '{$_POST['apellido_vo']}' ,  `fecha_na_vo` =  '{$_POST['fecha_na_vo']}' ,  `edad_vo` =  '{$_POST['edad_vo']}' ,  `genero_vo` =  '{$_POST['genero_vo']}' ,  `telefono_vo` =  '{$_POST['telefono_vo']}' ,  `direccion_vo` =  '{$_POST['direccion_vo']}' ,  `departamento_vo` =  '{$_POST['departamento_vo']}',  `email_vo` =  '{$_POST['email_vo']}',  `password_vo` =  '{$_POST['password_vo']}'   WHERE `cod_vo` = $cod_vo ";
                     mysql_query($sql) or die(mysql_error());
                     echo (mysql_affected_rows()) ? "Voluntario se actualizado correctamente!.<br />" : "Error al actualizar!. <br />";
                 } else {
@@ -210,7 +188,7 @@
                                   <div class="form-group">
                                     <label for="telefono" class="col-lg-3 control-label">Telefono</label>
                                     <div class="col-lg-4">
-                                        <input type="tel" name="telefono_vo" value="<?php echo $telefono ?>" placeholder="Escriba un numero de telefono" class="form-control" onkeypress="return acceptNum(event)" maxlength="11" required>
+                                        <input type="tel" name="telefono_vo" value="<?php echo $telefono ?>" placeholder="Escriba un numero de telefono" class="form-control" required>
                                     </div>
                                 </div>
                                   <div class="form-group">    
@@ -255,6 +233,7 @@
                                     <div class="col-lg-4">
                                         <input type="password" name="password_vo" value="<?php echo $password ?>" class="form-control" placeholder="Contraseña" required>
                                     </div> 
+                                    
                                     <br>
                                     <br>
                                     <br>
@@ -263,9 +242,9 @@
 
                                       
                                       
-                                   <input type='submit' name='Guardar' value='guardar' class="btn btn-default btn-large" />
-
-                                   <input type='submit' name='Modificar' value='modificar' class="btn btn-default btn-large" />
+                                   
+                                      <input type='submit' name='Guardar' value='Guardar' class="btn btn-primary btn-large" />
+                                   <input type='submit' name='Modificar' value='Modificar' class="btn btn-primary btn-large" />
                                     </center>
                                 </div>
     

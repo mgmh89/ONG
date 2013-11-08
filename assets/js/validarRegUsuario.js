@@ -54,11 +54,21 @@ $(document).ready(function() {
                         minlength: 8,
                         required: true
                     },
-            sexolst:
+         
+		 genero_doc :
+                    {
+                        required: true
+						
+
+                    },
+					
+		departemento_doc :
                     {
                         required: true
 
                     }
+					
+					
         }
     });
     // fallback que detecta el uso del tag DATE en html5 y si no 

@@ -22,7 +22,7 @@ and open the template in the editor.
             $sql = "UPDATE `doctor` SET `nombre_doc` =  '{$_POST['nombre_doc']}' ,  `apellido_doc` =  '{$_POST['apellido_doc']}' ,  `JVPO` =  '{$_POST['JVPO']}' ,  `genero_doc` =  '{$_POST['genero_doc']}' ,  `fecha_na_doc` =  '{$_POST['fecha_na_doc']}' ,  `password_doc` =  '{$_POST['password_doc']}' ,  `telefono_doc` =  '{$_POST['telefono_doc']}' ,  `direccion_doc` =  '{$_POST['direccion_doc']}' ,  `departamento_doc` =  '{$_POST['departamento_doc']}' ,  `cod_as` =  '{$_POST['cod_as']}'   WHERE `cod_doc` = $id ";
             mysql_query($sql) or die(mysql_error());
             echo (mysql_affected_rows()) ? "Row actualizada.<br /> " : "Nada se actualizo.<br /> ";
-            header("Location: http://localhost:8000/private_content/regDoctor.php"); /* Redirect browser */
+            header("Location: /ONG/private_content/regDoctor.php"); /* Redirect browser */
             ?> 
         </div>
     </body>

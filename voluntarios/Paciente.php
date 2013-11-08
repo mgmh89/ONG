@@ -71,8 +71,8 @@
             include_once 'layout/private-header.php';
             if (isset($_GET['cod_pa'])) {
                 include_once '../clases/db_connect.php';
-                $vcod_pa = $_GET['cod_pa'];
-                $getPaciente = mysql_query("SELECT * FROM paciente where cod_pa=$vcod_pa");
+                $cod_pa = $_GET['cod_pa'];
+                $getPaciente = mysql_query("SELECT * FROM paciente where cod_pa=$cod_pa");
                 while ($row = mysql_fetch_array($getPaciente)) {
                     $nombre = $row{'nombre_pa'};
                     $apellido = $row{'apellido_pa'};
@@ -84,33 +84,64 @@
                     $municipio = $row{'municipio_pa'};
                     $departamento = $row{'departamento_pa'};
                 }
-                $getExped = mysql_query("SELECT cod_pa FROM expediente where cod_pa in (SELECT cod_pa from expediente where cod_pa=$vcod_pa)");
+                $getExped = mysql_query("SELECT cod_pa FROM paciente where cod_pa in (SELECT cod_pa from paciente where cod_pa=$cod_pa)");
                 while ($row = mysql_fetch_array($getExped)) {
                     $cod_expediente = $row{'cod_pa'};
                 }
             }
             ?>
+            
+            
+            
+         
+            
+            
+            
+            
         </div>
         <div id="contenedor" class="container">
             <div>
-                <?php
-                if (isset($_POST['submitted'])) {
+               <?php
+        //include database configuration
+
+        if (isset($_POST['guardar'])) {
+
+            include_once '../clases/db_connect.php';
+            //sql insert statement
+            $sql = "insert into paciente(nombre_pa, apellido_pa, fecha_na_pa, edad_pa, genero_pa, telefono_pa, direccion_pa,municipio_pa, departamento_pa)
+                values('{$_POST['nombre_pa']}', '{$_POST['apellido_pa']}', '{$_POST['fecha_na_pa']}', '{$_POST['edad_pa']}', '{$_POST['genero_pa']}', '{$_POST['telefono_pa']}', '{$_POST['direccion_pa']}', '{$_POST['municipio_pa']}','{$_POST['departamento_pa']}')";
+            //insert query to the database
+            if (mysql_query($sql)) {
+                session_start();
+                //if successful query
+                echo "<script>alert('registro guardado correctamente!')</script>";
+                $sql = "";
+
+                $_SESSION['nombre'] = $_POST['nombre_pa'];
+                header("Location: /ONG/private_content/Paciente.php"); /* Redirect browser */
+                exit();
+            } else {
+                //if query failed
+                die($sql . ">>" . mysql_error());
+            }
+        }
+        ?>
+                
+                   <?php
+                   
+                if (isset($_POST['modificar'])) {
                     foreach ($_POST AS $key => $value) {
                         $_POST[$key] = mysql_real_escape_string($value);
                     }
-                    $sql = "UPDATE `paciente` SET  `nombre_pa` =  '{$_POST['nombre_pa']}' ,  `apellido_pa` =  '{$_POST['apellido_pa']}' ,  `fecha_na_pa` =  '{$_POST['fecha_na_pa']}' ,  `edad_pa` =  '{$_POST['edad_pa']}' ,  `genero_pa` =  '{$_POST['genero_pa']}' ,  `telefono_pa` =  '{$_POST['telefono_pa']}' ,  `direccion_pa` =  '{$_POST['direccion_pa']}' ,  `municipio_pa` =  '{$_POST['municipio_pa']}' ,  `departamento_pa` =  '{$_POST['departamento_pa']}'   WHERE `cod_pa` = $vcod_pa ";
+                    
+                    $sql = "UPDATE paciente SET  `nombre_pa` =  '{$_POST['nombre_pa']}' ,  `apellido_pa` =  '{$_POST['apellido_pa']}' ,  `fecha_na_pa` =  '{$_POST['fecha_na_pa']}' ,  `edad_pa` =  '{$_POST['edad_pa']}' ,  `genero_pa` =  '{$_POST['genero_pa']}' ,  `telefono_pa` =  '{$_POST['telefono_pa']}' ,  `direccion_pa` =  '{$_POST['direccion_pa']}' ,  `municipio_pa` =  '{$_POST['municipio_pa']}' ,  `departamento_pa` =  '{$_POST['departamento_pa']}'   WHERE `cod_pa` = $cod_pa";
                     mysql_query($sql) or die(mysql_error());
-                    echo (mysql_affected_rows()) ? "Paciente actualizado correctamente!.<br />" : "Error al actualizar!. <br />";
-                } elseif (isset($_POST['submitted3'])) {
-                    foreach ($_POST AS $key => $value) {
-                        $_POST[$key] = mysql_real_escape_string($value);
-                    }
-                    $sql = "INSERT INTO `expediente` ( `cod_ex` ,  `no_ex` ,  `referido` ,  `at_medicos` ,  `cod_cita` ,  `consulta_pa` ,  `antecedentes_pa` ,`cod_pa` ) VALUES(  '{$_POST['cod_ex']}' ,  '{$_POST['no_ex']}' ,  '{$_POST['referido']}' ,  '{$_POST['at_medicos']}' ,  '{$_POST['cod_cita']}' ,  '{$_POST['consulta_pa']}' ,  '{$_POST['antecedentes_pa']}', $vcod_pa  ) ";
-                    mysql_query($sql) or die(mysql_error());
-                    echo "Consulta guardada!.<br />";
-                    echo "<a href='Paciente.php'>Regresar</a>";
+                    echo (mysql_affected_rows()) ? "Voluntario se actualizado correctamente!.<br />" : "Error al actualizar!. <br />";
+                } else {
+                    
                 }
                 ?>
+                
             </div>
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#Datos">Datos</a></li>
@@ -123,7 +154,8 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Paciente</div>
                         <div class="panel-body">
-                            <a href=agregarPaciente.php>Nuevo Paciente</a>
+                            <!--  <a href=agregarPaciente.php>Nuevo Paciente</a> -->
+                           
                             <form action="#" id="paciente" method="POST" class="form-horizontal" id="pacientedatos">
                                 <div class="form-group">
                                     <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
@@ -140,22 +172,25 @@
                                 <div class="form-group">
                                     <label for="fecha_na_pa" class="col-lg-3 control-label">Fecha de nacimiento:</label>
                                     <div class="col-lg-3">
-                                        <input type="date" name="fecha_na_pa" max="1943-01-01" value="<?php echo $fechaNa ?>"   class="form-control"><br>
+                                        <input type="date" name="fecha_na_pa" value="<?php echo $fechaNa ?>"   class="form-control"><br>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="edad_pa" class="col-lg-3 control-label">Edad:</label>
+                                    <label for="edad_pa" class="col-lg-3 control-label">Edad</label>
                                     <div class="col-lg-3">
-                                        <input type="number" name="edad_pa"  min="2" max="75" value="<?php echo $edad ?>"   class="form-control"><br>
+                                        <input type="number" name="edad_pa" value="<?php echo $edad ?>"   class="form-control"><br>
                                     </div>
                                 </div>
- 
+
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">Genero</label>
+                                    <label  class="col-lg-3 control-label">Genero</label>
                                     <div class="col-lg-4">
-                                        <input type="radio" name="genero_pa" value="Masculino" checked />Masculino<br />
-                                        <input type="radio" name="genero_pa" value="Femenino" />Femenino<br />
-                                    </div>  
+                                        <select name="genero_pa" class="form-control" required>
+                                            <option value="<?php echo $genero ?>">- Seleccione -</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -172,13 +207,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">    
-                                    <div class="form-group">
-                                        <div class="col-lg-4"><b>Municipio Paciente:</b><br />
-                                            <select name="municipio_pa" class="form-control" required>
-
-                                                <option value="<?php echo $municipio ?>">- Seleccione -</option>
-                                                <option value=""></option>
+                                <div class="form-group">
+                                    <label for="municipio_pa" class="col-lg-3 control-label">Municipio</label>
+                                        <div class="col-lg-4">
+                                         <select name="municipio_pa" class="form-control" required>
+                                         <option value="<?php echo $municipio ?>">- Seleccione -</option>
                                          <option value="Acajutla">Acajutla</option> 
                                          <option value="Agua Caliente">Agua Caliente</option>
                                          <option value="Aguilares ">Aguilares </option>
@@ -276,14 +309,14 @@
 
                                             </select>
 
-                                        </div> 
-
                                     </div>
+                                   </div> 
+                                
                                 <div class="form-group">
                                     <label for="departamento" class="col-lg-3 control-label">Departamento</label>
                                     <div class="col-lg-4">
                                         <select name="departamento_pa" class="form-control" required="">
-                                            <option value="NONE">- Seleccione -</option>
+                                            <option value="<?php echo $departamento ?>">- Seleccione -</option>
                                             <option value="San Salvador">San Salvador</option>
                                             <option value="La Paz">La Paz</option>
                                             <option value="San Miguel">San Miguel</option>
@@ -305,13 +338,15 @@
                                     <br>
                                     <br>
                                     <center>
-                                        <p><input type='submit' class="btn btn-primary btn-large" value='Guardar Cambios' /><input type='hidden' value='1' name='submitted' /> 
+                                        <p><input type='submit' name="guardar" class="btn btn-primary btn-large" value='Guardar' />
+                                            <input type="submit" name="modificar" value="Modificar" class="btn btn-primary btn-large">
+                                            <input type='hidden' value='1' name='submitted' /> 
                                     </center>
                                 </div>
 
                             </form>
                             <div class="table-responsive">
-                                <?
+                                <?php
                                 include_once '../clases/db_connect.php';
                                 $tabla = "table ";
                                 echo "<table class=" . $tabla . ">";
@@ -430,7 +465,7 @@
                             </form>
 
                             <div class="table-responsive">      
-                                <?
+                                <?php
                                 include_once '../clases/db_connect.php';
 
                                 echo "<table class=" . $tabla . ">";
@@ -443,7 +478,7 @@
                                 echo "<td><b>Consulta Pa</b></td>";
                                 echo "<td><b>Antecedentes Pa</b></td>";
                                 echo "</tr>";
-                                $result = mysql_query("SELECT * FROM `expediente` where cod_pa=$vcod_pa") or trigger_error(mysql_error());
+                                $result = mysql_query("SELECT * FROM `expediente` where cod_pa=$cod_pa") or trigger_error(mysql_error());
                                 while ($row = mysql_fetch_array($result)) {
                                     foreach ($row AS $key => $value) {
                                         $row[$key] = stripslashes($value);
@@ -466,6 +501,11 @@
                     </div>
                 </div>
 
+                
+                
+             
+                
+                
                 <div class="tab-pane" id="Citas">
                     <div class="panel panel-primary">
 
@@ -497,11 +537,41 @@
                                     </div>
                                     <br>
                                     <br>
-
-                                    <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Guardar</a>
-                                    <a href="#" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-search"></i> Limpiar</a>
+                                    <br>
+                                    <input type='submit' name="g" class="btn btn-primary btn-large" value='Guardar' />
+                                            <input type="submit" name="m" value="Modificar" class="btn btn-primary btn-large">
+                                            <br>
+                                            <br>
+                                    
                                 </div>
                             </form>
+                            <?php
+                                include_once '../clases/db_connect.php';
+
+                                echo "<table class=" . $tabla . ">";
+                                echo "<tr>";
+
+                                echo "<td><b>No Expediente</b></td>";
+                                echo "<td><b>Doctor</b></td>";
+                                echo "<td><b>Fecha</b></td>";
+                                echo "<td><b>Hora</b></td>";
+                                echo "</tr>";
+                                $result = mysql_query("SELECT * FROM `cita` where cod_pa=$cod_pa") or trigger_error(mysql_error());
+                                while ($row = mysql_fetch_array($result)) {
+                                    foreach ($row AS $key => $value) {
+                                        $row[$key] = stripslashes($value);
+                                    }
+                                    echo "<tr>";
+
+                                    echo "<td valign='top'>" . nl2br($row['no_ex']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['nombre_doc']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['fecha_cita']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['hor_cita']) . "</td>";
+                                    echo "<td valign='top'><a href=eliminarCita.php?cod_cita={$row['cod_cita']}>Delete</a></td> ";
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                                ?>
                         </div>
                     </div>
                 </div>
