@@ -63,6 +63,25 @@
             });
         </script>
 
+<script>
+function numeros(e){
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = " 0123456789";
+    especiales = [8,37,39,46];
+ 
+    tecla_especial = false
+    for(var i in especiales){
+ if(key == especiales[i]){
+     tecla_especial = true;
+     break;
+        } 
+    }
+ 
+    if(letras.indexOf(tecla)==-1 && !tecla_especial)
+        return false;
+		}
+</script>
     </head>
     <body>
 
@@ -178,7 +197,7 @@
                                 <div class="form-group">
                                     <label for="edad_pa" class="col-lg-3 control-label">Edad</label>
                                     <div class="col-lg-3">
-                                        <input type="number" name="edad_pa" value="<?php echo $edad ?>"   class="form-control"><br>
+                                        <input type="number" name="edad_pa" value="<?php echo $edad ?>"  min="3" max="80" onkeypress="return numeros(event)" class="form-control"><br>
                                     </div>
                                 </div>
 
@@ -196,7 +215,7 @@
                                 <div class="form-group">
                                     <label for="telefono" class="col-lg-3 control-label">Telefono</label>
                                     <div class="col-lg-4">
-                                        <input type="tel" value="<?php echo $telefono ?>"  name="telefono_pa" placeholder="Escriba un numero de telefono" class="form-control" required>
+                                        <input type="tel" value="<?php echo $telefono ?>" onkeypress="return numeros(event)" name="telefono_pa" placeholder="Escriba un numero de telefono" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">    
@@ -404,7 +423,7 @@
                                 <div class="form-group">
                                     <label for="Edad Paciente" class="col-lg-3 control-label">Edad</label>
                                     <div class="col-lg-3">
-                                        <input type="text" name="edad_pa" value="<?php echo $edad ?>"  class="form-control" required><br>
+                                        <input type="number" name="edad_pa" value="<?php echo $edad ?>"  min="3" max="80" onkeypress="return numeros(event)" class="form-control">
                                     </div>
                                 </div>
 
