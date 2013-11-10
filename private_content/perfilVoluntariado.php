@@ -78,6 +78,7 @@ function numeros(e){
  
     if(letras.indexOf(tecla)==-1 && !tecla_especial)
         return false;
+		}
 </script>
 
     </head>
