@@ -94,7 +94,18 @@
             
             
          
-            
+                <?php
+            include_once 'layout/private-header.php';
+            if (isset($_GET['cod_cita'])) {
+                include_once '../clases/db_connect.php';
+                $cod_cita= $_GET['cod_cita'];
+
+                $getExp = mysql_query("SELECT cod_cita FROM cita where $cod_cita in (SELECT cod_cita from cita)");
+                while ($row = mysql_fetch_array($getExped)) {
+                    echo $cod_expediente = $row{'cod_cita'};
+                }
+            }
+            ?>
             
             
             
@@ -508,7 +519,31 @@
                 
                 <div class="tab-pane" id="Citas">
                     <div class="panel panel-primary">
+         <?php
+        //include database configuration
 
+        if (isset($_POST['g'])) {
+
+            include_once '../clases/db_connect.php';
+            //sql insert statement
+            $sql = "insert into cita(numero_exp,doctor, fecha_cita, hora_cita)
+                values('{$_POST['numero_exp']}', '{$_POST['nombre_doc']}', '{$_POST['fecha']}', '{$_POST['hora']}')";
+            //insert query to the database
+            if (mysql_query($sql)) {
+                session_start();
+                //if successful query
+                echo "<script>alert('registro guardado correctamente!')</script>";
+                $sql = "";
+
+                $_SESSION['nombre'] = $_POST['numero_exp'];
+                header("Location: /ONG/private_content/Paciente.php"); /* Redirect browser */
+                exit();
+            } else {
+                //if query failed
+                die($sql . ">>" . mysql_error());
+            }
+        }
+        ?>
                         <div class="panel-heading">Seleccione fecha para proxima cita</div>
                         <div class="panel-body">
                             <form action="#" id="busquedaCita" class="form-horizontal" id="citas">
@@ -533,7 +568,7 @@
                                     <br>
                                     <label for="hora_Cita" class="col-lg-2 control-label">Hora:</label>
                                     <div class="col-lg-10">
-                                        <input type="time"  class="form-control" name=hora"">  
+                                        <input type="time"  class="form-control" name="hora">  
                                     </div>
                                     <br>
                                     <br>
@@ -556,17 +591,17 @@
                                 echo "<td><b>Fecha</b></td>";
                                 echo "<td><b>Hora</b></td>";
                                 echo "</tr>";
-                                $result = mysql_query("SELECT * FROM `cita` where cod_pa=$cod_pa") or trigger_error(mysql_error());
+                                $result = mysql_query("SELECT * FROM `cita` where cod_cita=$cod_cita") or trigger_error(mysql_error());
                                 while ($row = mysql_fetch_array($result)) {
                                     foreach ($row AS $key => $value) {
                                         $row[$key] = stripslashes($value);
                                     }
                                     echo "<tr>";
 
-                                    echo "<td valign='top'>" . nl2br($row['no_ex']) . "</td>";
-                                    echo "<td valign='top'>" . nl2br($row['nombre_doc']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['numero_exp']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['doctor']) . "</td>";
                                     echo "<td valign='top'>" . nl2br($row['fecha_cita']) . "</td>";
-                                    echo "<td valign='top'>" . nl2br($row['hor_cita']) . "</td>";
+                                    echo "<td valign='top'>" . nl2br($row['hora_cita']) . "</td>";
                                     echo "<td valign='top'><a href=eliminarCita.php?cod_cita={$row['cod_cita']}>Delete</a></td> ";
                                     echo "</tr>";
                                 }

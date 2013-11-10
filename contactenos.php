@@ -22,12 +22,12 @@
     </head>
     <body>
     
-    
+
     <?php
 if(isset($_POST['email'])) {
 
 // Debes editar las próximas dos líneas de código de acuerdo con tus preferencias
-$email_to = "krlacecy@hotmail.es";
+$email_to = "monteshernandez6@hotmail.com";
 $email_subject = "Contacto desde el sitio web";
 
 // Aquí se deberían validar los datos ingresados por el usuario
@@ -85,7 +85,7 @@ echo "¡El formulario se ha enviado con éxito!";
 
 
                             <div class="form-group">
-                                <label for="Nombre" class="col-lg-3 control-label">Nombre</label>
+                                <label for="Nombre" class="col-lg-3 control-label" >Nombre</label>
                                 <div class="col-lg-4">
                                     <input type="text" name="nombre" class="form-control" placeholder="Escriba un nombre"  required pattern=.{4,25} >
                                 </div>
@@ -93,7 +93,7 @@ echo "¡El formulario se ha enviado con éxito!";
                             <div class="form-group">
                                 <label for="Telefono_Contacto" class="col-lg-3 control-label"> Telefono de Contacto </label>
                                 <div class="col-lg-4">
-                                    <input type="tel" name="telefono_contacto" class="form-control" required pattern=".{7,15}">
+                                    <input type="tel" name="telefono" class="form-control" required pattern=".{7,15}">
                                 </div>
                             </div>
 
@@ -105,9 +105,9 @@ echo "¡El formulario se ha enviado con éxito!";
                             </div>
 
                                 <div class="form-group">
-                                    <label for="motivo" class="col-lg-3 control-label">Motivo</label>
+                                    <label for="motivo" class="col-lg-3 control-label" >Motivo</label>
                                     <div class="col-lg-4">
-                                        <select name="departamento_pa" class="form-control" required="">
+                                        <select name="motivo" class="form-control" required="">
                                             <option value="NONE">- Seleccione -</option>
                                             <option value="opcion1">Voluntario inscripcion</option>
                                             <option value="opcion2">Duda general</option>
@@ -120,14 +120,14 @@ echo "¡El formulario se ha enviado con éxito!";
 
 
                             <div class="form-group">    
-                                <label for="Mensaje" class="col-lg-3 control-label">Mensaje</label>
+                                <label for="Mensaje" class="col-lg-3 control-label" >Mensaje</label>
                                 <div class="col-lg-6">
-                                    <textarea name="textarea" class="form-control col-lg-6" rows="10" > </textarea>
+                                    <textarea name="mensaje" class="form-control col-lg-6" rows="10" > </textarea>
 
                                 </div>
                             </div>
-                            <center><button type="submit" name="asdfEnviar" value="Enviar" class="btn btn-primary btn-lg" >Enviar</button></center>
-                            <input type='submit' name='Enviar' class="btn btn-default btn-large" />
+                            <center><button type="submit" name="enviar" value="enviar" class="btn btn-primary btn-lg" >Enviar</button></center>
+                            
                         </div>
                     </form>
                 </div>       
