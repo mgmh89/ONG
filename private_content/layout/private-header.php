@@ -26,6 +26,7 @@
         
         <li><a href="paciente.php">Pacientes</a><li>
         <li><a href="perfilVoluntariado.php">Voluntariados</a></li>
+            <li><a href="contacto_list.php">Contactos</a></li>
     </ul>
     <form class="navbar-form navbar-left">
         <!--  <a class="btn btn-success btn-large" href="login.html" role="button">Entrar</a> -->
