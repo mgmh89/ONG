@@ -351,10 +351,7 @@ function numeros(e){
                                 ?>
                             </div>
                         </div>
-                    </div>
-
-
-
+                
                 </div>
 
             </div>

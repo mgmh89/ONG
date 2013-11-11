@@ -3,11 +3,11 @@
 /**
  * clase para abrir una conexion a mysql server
  *
- * @author daMgeL
+ * @author 
  */
 $servidor = "localhost";
 $usuario = "root";
-$password = "gaby";
+$password = "karla";
 $databaseName = "cocides";
 
 //echo "<p>hola mundo desde la clase de conexion..</p>";
