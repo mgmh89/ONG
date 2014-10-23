@@ -174,13 +174,13 @@ function numeros(e){
                                 <div class="form-group">
                                     <label for="Nombre_doc" class="col-lg-3 control-label">Nombre</label>
                                     <div class="col-lg-4">
-                                        <input type="text" name="nombre_vo" value="<?php echo $nombre ?>" class="form-control" placeholder="Escriba un nombre" required>
+                                        <input type="text" name="nombre_vo" value="<?php echo $nombre ?>" class="form-control" placeholder="Escriba un nombre" required pattern=.{4,25}>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="apellido_doc" class="col-lg-3 control-label">Apellido</label>
                                     <div class="col-lg-4">
-                                        <input type="text" name="apellido_vo" value="<?php echo $apellido ?>" class="form-control" placeholder="Escriba un apellido" required>
+                                        <input type="text" name="apellido_vo" value="<?php echo $apellido ?>" class="form-control" placeholder="Escriba un apellido" required pattern=.{4,25}>
                                     </div>
                                 </div>
                                 <div class="form-group">
