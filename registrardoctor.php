@@ -40,7 +40,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Contactenos</div>
                 <div class="panel-body">
-                    <form action="#" name="contact" method="POST" class="form-horizontal" >
+                    <form action="#" name="contact" method="POST" class="form-horizontal" id="doctor" >
                         <div class="form-group">
 
 
@@ -65,7 +65,7 @@
 				<div class="form-group">
                                     <label for="genero" class="col-lg-3 control-label" >Genero</label>
                                     <div class="col-lg-4">
-                                        <select name="motivo" class="form-control" required="">
+                                        <select name="genero" class="form-control" required="">
                                             <option value="NONE">- Seleccione -</option>
                                             <option value="opcion1">Femenino</option>
                                             <option value="opcion2">Masculino</option>
@@ -75,14 +75,36 @@
 					<div class="form-group">
                                 	<label for="fechanacimiento" class="col-lg-3 control-label" >Fecha de nacimiento</label>
                                 	<div class="col-lg-4">
-                                    	<input type="text" name="Fechanacimiento" class="form-control" placeholder="Escriba su fecha de nacimiento"  required pattern=.{4,25} >
+                                    	<input type="text" name="Fechanacimiento" class="form-control" placeholder="1989/05/26"  required pattern=.{4,25} >
                                    </div>
                             	</div>
-
-HASTA AQUI ME QUEDE.
-
-
-
+                            <div class="form-group">
+                                <label for="direccion" class="col-lg-3 control-label"> Dirección </label>
+                                <div class="col-lg-4">
+                                    <input type="text" name="direccion" class="form-control" required pattern=".{7,15}">
+                                </div>
+                            </div>
+                            <label for="deparatamento" class="col-lg-3 control-label" >Departamento</label>
+                                    <div class="col-lg-4">
+                                        <select name="departamento" class="form-control" required="">
+                                            <option value="NONE">- Seleccione -</option>
+                                            <option value="opcion1">San salvaodor</option>
+                                            <option value="opcion2">La Libertad</option>
+                                            <option value="opcion3">Cabañas</option>
+                                            <option value="opcion4">La unión</option>
+                                            <option value="opcion5">Chalatenango</option>
+                                            <option value="opcion6">San Miguel</option>
+                                            <option value="opcion7">Sonsonate</option>
+                                            <option value="opcion8">Ahuachapan</option>
+                                            <option value="opcion9">Morazan</option>
+                                            <option value="opcion10">Usulutan</option>
+                                            <option value="opcion11">La Paz</option>
+                                            <option value="opcion12">Sata Ana</option>
+                                            <option value="opcion13">Cuscatlan</option>
+                                            <option value="opcion14">San Vicente</option>
+                                        </select>
+                                    </div>
+                                </div>
 
                             <div class="form-group">
                                 <label for="Telefono_Contacto" class="col-lg-3 control-label"> Telefono de Contacto </label>
@@ -97,36 +119,22 @@ HASTA AQUI ME QUEDE.
                                     <input type="email" name="email" class="form-control" placeholder="Escriba un correo aqui"  required>
                                 </div>
                             </div>
-				<div class="form-group">
-                                <label for="" class="col-lg-3 control-label">Correo</label>
+				            
+                            <div class="form-group">
+                                <label for="Email" class="col-lg-3 control-label">Contraseña</label>
                                 <div class="col-lg-4">
-                                    <input type="email" name="email" class="form-control" placeholder="Escriba un correo aqui"  required>
+                                    <input type="password" name="password" id="pass1" class="form-control" placeholder="Tu contraseña"  required>
                                 </div>
                             </div>
-
-                                <div class="form-group">
-                                    <label for="motivo" class="col-lg-3 control-label" >Motivo</label>
-                                    <div class="col-lg-4">
-                                        <select name="motivo" class="form-control" required="">
-                                            <option value="NONE">- Seleccione -</option>
-                                            <option value="opcion1">Voluntario inscripcion</option>
-                                            <option value="opcion2">Duda general</option>
-                                            <option value="opcion3">Donaciones</option>
-                                            <option value="opcion4">Citas</option>
-                                        </select>
-                                    </div>
+                
+                            <div class="form-group">
+                                <label for="Email" class="col-lg-3 control-label">Confirmar contraseña</label>
+                                <div class="col-lg-4">
+                                    <input type="password" name="password" id="pass2" class="form-control" placeholder="Confirma tu contraseña"  required>
                                 </div>
                             </div>
-
-
-                            <div class="form-group">    
-                                <label for="Mensaje" class="col-lg-3 control-label" >Mensaje</label>
-                                <div class="col-lg-6">
-                                    <textarea name="mensaje" class="form-control col-lg-6" rows="10" > </textarea>
-
-                                </div>
-                            </div>
-                            <center><button type="submit" name="enviar" value="enviar" class="btn btn-primary btn-lg" >Enviar</button></center>
+                
+                            <center><button type="submit" name="enviar" id="enviar" value="enviar" class="btn btn-primary btn-lg" >Enviar</button></center>
                             
                         </div>
                     </form>
@@ -138,3 +146,41 @@ HASTA AQUI ME QUEDE.
 
     </body>
 </html>
+
+ <script>
+$(document).on('ready',function(){
+
+    $('button#enviar').on('click', verificar);
+ $('form#doctor').on('submit', function(event){event.preventDefault()});
+});
+
+function verificar()
+{
+    var pass1 = $('#pass1').val();
+    var pass2 = $('#pass2').val();
+    if(pass1 !== pass2){
+        alert('Su contraseña no coinciden');
+    }else{
+        $.ajax({
+            url: 'voluntarios/enviarDoctor.php',
+            type: 'post',
+            dataType: 'text',
+            data: $('form#doctor').serialize(),
+        })
+        .done(function(data) {
+            alert('Su informacion ha sido enviada');
+            $('input').val('');
+            console.log(data);
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    }
+}
+
+
+ </script>
